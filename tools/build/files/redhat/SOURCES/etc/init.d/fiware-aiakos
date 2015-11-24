@@ -1,0 +1,105 @@
+#!/bin/sh
+#
+# Init script for starting up Fiware-Aiakos service
+#
+# chkconfig:   2345 91 10
+
+
+### BEGIN INIT INFO
+# Provides:          fiware-aiakos
+# Required-Start:    $local_fs $remote_fs $network $syslog
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Init script for starting up fiware-aiakos service
+
+### END INIT INFO
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="FIWARE Aiakos"
+NAME=fiware-aiakos
+DAEMON_DIR=/opt/fiware/$NAME
+DAEMON_BIN=bin/www
+DAEMON_ARGS=""
+DAEMON_USER=fiware
+FOREVER_DIR=/var/run/fiware/.forever
+LOGFILE=/var/log/$NAME/$NAME.log
+PIDFILE=$FOREVER_DIR/pids/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+
+# Read configuration variable files, if present
+[ -r /etc/profile ]		&& . /etc/profile
+[ -r /etc/sysconfig/$NAME ]	&& . /etc/sysconfig/$NAME
+
+# Check that networking is up
+[ -r /etc/sysconfig/network ]	&& . /etc/sysconfig/network
+[ "${NETWORKING}" = "no" ]	&& exit 0
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Workaround to set forever path for auxiliary files
+FOREVER="HOME=$(dirname $FOREVER_DIR) $DAEMON_DIR/node_modules/.bin/forever"
+FOREVER_OPTS="-p $FOREVER_DIR -l $LOGFILE -o $LOGFILE -e $LOGFILE \
+	--append --silent --no-colors"
+
+# Function that checks configuration
+do_checkup()
+{
+	local euid=$(id -u)
+	local user=${DAEMON_USER:-none}
+	# check privileges
+	[ $euid -eq 0 ] || action $"Must be superuser to do that action" false
+	[ $? -eq 0 ] || return 1
+	# check DAEMON_USER
+	id $user >/dev/null 2>&1 || action $"User $DAEMON_USER not found" false
+	[ $? -eq 0 ] || return 1
+	# check Node.js V8 engine
+	[ -n "$(node -v 2>/dev/null)" ] || action $"Node engine not found" false
+	[ $? -eq 0 ] || return 1
+}
+
+# Function that starts the daemon/service
+do_start()
+{
+	local options="$FOREVER_OPTS --minUptime 1000 --spinSleepTime 1000"
+	local startup="$FOREVER start $options --uid $NAME $DAEMON_BIN"
+	cd $DAEMON_DIR \
+	&& do_checkup \
+	&& action $"Starting $NAME:" daemon --user=$DAEMON_USER "$startup"
+	RETVAL=$?
+	echo
+}
+
+# Function that stops the daemon/service
+do_stop()
+{
+	local stop="$FOREVER stop $FOREVER_OPTS $NAME"
+	cd $DAEMON_DIR \
+	&& do_checkup \
+	&& action $"Stopping $NAME:" daemon --user=$DAEMON_USER "$stop"
+	RETVAL=$?
+	echo
+}
+
+case "$1" in
+	start)
+		do_start
+		;;
+	stop)
+		do_stop
+		;;
+	restart)
+		do_stop
+		do_start
+		;;
+	status)
+		status -p $PIDFILE $NAME
+		;;
+	*)
+		echo $"Usage: $NAME {start|stop|restart|status}" >&2
+		exit 3
+		;;
+esac
+
+:
