@@ -21,7 +21,6 @@ License: Apache
 Group: Applications/Engineering
 Vendor: Telefónica I+D
 BuildArch: noarch
-Requires:
 # nodejs dependency handled in 'pre' section (see below)
 
 %description
