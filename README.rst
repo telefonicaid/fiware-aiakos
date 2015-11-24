@@ -1,10 +1,10 @@
 ===============
- FIWARE aiakos
+ FIWARE Aiakos
 ===============
 
 |Build Status| |Coverage Status|
 
-Server with public API to manage ssh/gpg keys for the support user of each 
+Server with public API to manage ssh/gpg public keys for the support user of each 
 `FIWARE Lab`_ node.
 
 This project is part of FIWARE_.
