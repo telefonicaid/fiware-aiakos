@@ -150,7 +150,7 @@ if [ $1 -eq 1 ]; then
 	chmod a+x $FIWAREAIAKOS_DIR/bin/www
 
 	# configure service
-	chmod a+x /etc/init.d/$FIWAREAIAKOSD_SRV
+	chmod a+x /etc/init.d/$FIWAREAIAKOS_SRV
 	/sbin/chkconfig --add $FIWAREAIAKOS_SRV
 
 	# postinstall message
