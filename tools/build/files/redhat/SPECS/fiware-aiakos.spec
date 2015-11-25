@@ -3,11 +3,11 @@
 %define _fiware_usr fiware
 %define _fiware_grp fiware
 %define _fiware_dir /opt/fiware
-%define _fiware-aiakos_srv fiware-aiakos
-%define _fiware-aiakos_usr %{_fiware_usr}
-%define _fiware-aiakos_grp %{_fiware_grp}
-%define _fiware-aiakos_dir %{_fiware_dir}/%{_fiware-aiakos_srv}
-%define _logging_dir /var/log/%{_fiware-aiakos_srv}
+%define _fiware_aiakos_srv fiware-aiakos
+%define _fiware_aiakos_usr %{_fiware_usr}
+%define _fiware_aiakos_grp %{_fiware_grp}
+%define _fiware_aiakos_dir %{_fiware_dir}/%{_fiware_aiakos_srv}
+%define _logging_dir /var/log/%{_fiware_aiakos_srv}
 %define _forever_dir /var/run/fiware/.forever
 %define _node_req_ver %(awk '/"node":/ {split($0,v,/["~=<>]/); print v[6]}' %{_basedir}/package.json)
 
@@ -36,11 +36,11 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %install
-mkdir -p $RPM_BUILD_ROOT/%{_fiware-aiakos_dir}; set +x
+mkdir -p $RPM_BUILD_ROOT/%{_fiware_aiakos_dir}; set +x
 INCLUDE='bin|config|lib|package.json|README.*|.*rc$'
 PATTERN='* .npmrc'
 FILES=$(cd %{_basedir}; for i in $PATTERN; do echo $i; done | egrep "$INCLUDE")
-for I in $FILES; do cp -R %{_basedir}/$I $RPM_BUILD_ROOT/%{_fiware-aiakos_dir}; done
+for I in $FILES; do cp -R %{_basedir}/$I $RPM_BUILD_ROOT/%{_fiware_aiakos_dir}; done
 cp -R %{_sourcedir}/* $RPM_BUILD_ROOT
 (cd $RPM_BUILD_ROOT; find . -type f -printf "/%%P\n" >> %{_topdir}/MANIFEST)
 echo "FILES:"; cat %{_topdir}/MANIFEST
@@ -102,10 +102,10 @@ if [ $1 -eq 1 ]; then
 	FIWARE_USR=%{_fiware_usr}
 	FIWARE_GRP=%{_fiware_grp}
 	FIWARE_DIR=%{_fiware_dir}
-	FIWAREAIAKOS_SRV=%{_fiware-aiakos_srv}
-	FIWAREAIAKOS_USR=%{_fiware-aiakos_usr}
-	FIWAREAIAKOS_GRP=%{_fiware-aiakos_grp}
-	FIWAREAIAKOS_DIR=%{_fiware-aiakos_dir}
+	FIWAREAIAKOS_SRV=%{_fiware_aiakos_srv}
+	FIWAREAIAKOS_USR=%{_fiware_aiakos_usr}
+	FIWAREAIAKOS_GRP=%{_fiware_aiakos_grp}
+	FIWAREAIAKOS_DIR=%{_fiware_aiakos_dir}
 	LOGGING_DIR=%{_logging_dir}
 	FOREVER_DIR=%{_forever_dir}
 	STATUS=0
@@ -119,9 +119,6 @@ if [ $1 -eq 1 ]; then
 	cd $FIWAREAIAKOS_DIR
 	npm config set ca=""
 	npm install --production || STATUS=1
-
-	# install pip dependencies (in current python env or virtualenv)
-	pip install mailman-api==0.2.9
 
 	# check FIWARE user
 	if ! getent passwd $FIWARE_USR >/dev/null; then
@@ -175,7 +172,7 @@ fi
 # uninstall ($1 == 0)
 if [ $1 -eq 0 ]; then
 	# remove installation directory
-	rm -rf %{_fiware-aiakos_dir}
+	rm -rf %{_fiware_aiakos_dir}
 
 	# remove FIWARE parent directory, if empty
 	[ -d %{_fiware_dir} ] && rmdir --ignore-fail-on-non-empty %{_fiware_dir}
@@ -188,34 +185,5 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
-* Tue Dec 01 2015 Telefónica I+D <opensource@tid.es> 1.3.0-1
+* Tue Dec 01 2015 Telefónica I+D <opensource@tid.es> 1.0.0-1
 - TODO
-
-* Mon Oct 26 2015 Telefónica I+D <opensource@tid.es> 1.2.0-1
-- Elapsed time of Sanity Checks execution
-- Username of region administrators given by configuration
-- Fix dependencies
-- Add exclusions to sonar configuration
-- Add jslint and gjslint support
-- Fix documentation
-
-* Thu Sep 28 2015 Telefónica I+D <opensource@tid.es> 1.1.3-1
-- Bugfixing
-
-* Tue Sep 08 2015 Telefónica I+D <opensource@tid.es> 1.1.2-1
-- Documentation
-
-* Tue Aug 04 2015 Telefónica I+D <opensource@tid.es> 1.1.1-1
-- Required libs
-
-* Tue Jun 30 2015 Telefónica I+D <opensource@tid.es> 1.1.0-1
-- New css/style
-- Add home button
-
-* Thu Jun 03 2015 Telefónica I+D <opensource@tid.es> 1.0.0-2
-- Add forever to monitor the execution of the server.
-
-* Fri May 29 2015 Telefónica I+D <opensource@tid.es> 1.0.0-1
-- New overview and details pages.
-- IdM authentication.
-- Mail notifications in subscriptions to status changes.
