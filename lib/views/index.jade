@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  p Please use:
+    pre GET /v1/support/{region_name}/sshkey   (text/plain)
+    pre GET /v1/support/{region_name}/gpgkey   (text/plain)
