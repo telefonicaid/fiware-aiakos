@@ -9,6 +9,62 @@ Server with public API to manage ssh/gpg public keys for the support user of eac
 
 This project is part of FIWARE_.
 
+API Overview
+============
+
+To show the help of service, you can use the operation::
+
+    GET /    (text/html)
+
+To query the keys, you should use the next operations::
+
+    GET /v1/support/<region_name>/sshkey  (text/plain)
+    
+    GET /v1/support/<region_name>/gpgkey  (text/plain)
+    
+
+Running
+=======
+
+After install rpm/deb package, and in order to start the service, run::
+
+    $ sudo service fiware-aiakos start
+    
+And to stop the service, run::
+
+    $ sudo service fiware-aiakos stop
+
+
+Configuration
+-------------
+
+You must to add the key files in the path /opt/fiware-aiakos/lib/public/keys.
+The naming must be <region_name>.sshkey and <region_name>.gpgkey
+
+
+Unit tests
+----------
+
+The ``test`` target is used for running the unit tests in the component::
+
+    $ cd fiware-aiakos
+    $ grunt test
+
+Build
+-----
+
+Use the script provided for generate the package for the OS used::
+
+    $ tools/build/package.sh
+
+
+Docker image
+------------
+
+You can use this  `Dockerfile <Dockerfile>`_ to launch/execute the Docker image and container::
+
+    $ docker build -t fiwareaiakos .
+    $ docker run -p 3000:3000 -d fiwareaiakos
 
 License
 =======
