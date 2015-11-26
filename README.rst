@@ -35,6 +35,10 @@ And to stop the service, run::
     $ sudo service fiware-aiakos stop
 
 
+In order to test the service is running, run::
+
+    $ curl http://localhost:3000/v1/support/example/sshkey
+
 Configuration
 -------------
 

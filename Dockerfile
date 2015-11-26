@@ -9,10 +9,10 @@ RUN curl --silent --location https://rpm.nodesource.com/setup | bash -
 RUN yum -y install nodejs
 RUN yum -y install rpm-build
 RUN yum -y install initscripts
-RUN git clone https://github.com/telefonicaid/fiware-aiakos fiware-aiakos-source
+ADD . /opt/fiware-aiakos-source
 WORKDIR /opt/fiware-aiakos-source
-RUN git checkout feature/5573_develop_server
 RUN npm install
+RUN ./node_modules/.bin/grunt test
 RUN ./tools/build/package.sh
 RUN mv *.rpm ..
 WORKDIR /opt
