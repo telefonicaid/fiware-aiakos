@@ -9,10 +9,9 @@ Introduction
 ============
 
 Each region of FIWARE_ must generate and provided a SSH public key and a GPG
-public key. They are use in the support account of the VMs.
-
-As a remainder, it is perfectly secure that anybody has access to public keys.
-Only the private keys must remain secret.
+public key. They are use in the support account of the VMs. As a remainder,
+it is perfectly secure that anybody has access to public keys. Only the private
+keys must remain secret.
 
 Top_
 
@@ -23,9 +22,16 @@ Why a SSH key and a GPG key are needed
 The new base images and all the images based on them, as the migrated GE images,
 have a support account. There are two public keys with an important role in the
 support account:
-*a SSH public key: This is the only method to log in the virtual machine with the support account via SSH (the password access is disabled).
-*a GPG public key: This key is used to encrypt the password of the support account. That password is generated inside the VM and after the encryption is printed to the console. The support account password allows to access the VM via console, which is useful if the network is down. Besides, the password is also needed to get full root privileges after connecting to the support account both using console and ssh client due to for security reasons sudo is configured for asking the password.
 
+- a SSH public key: This is the only method to log in the virtual machine with
+  the support account via SSH (the password access is disabled).
+- a GPG public key: This key is used to encrypt the password of the support
+  account. That password is generated inside the VM and after the encryption
+  is printed to the console. The support account password allows to access the
+  VM via console, which is useful if the network is down. Besides, the password
+  is also needed to get full root privileges after connecting to the support
+  account both using console and ssh client due to for security reasons sudo is
+  configured for asking the password.
 
 Another reason to require the support password and encrypt it is to make easy
 enforcing full control and audit of who have admin access to each VM. This is
@@ -53,7 +59,7 @@ How the keys are injected inside the virtual machines. Limitations
 ==================================================================
 
 The support account is created by a script invoked at boot time. This script is named
-''activate_support_account.py'' and it is available at `GlanceSync support scripts`_ https://github.com/telefonicaid/fiware-glancesync/blob/develop/scripts/support/
+*activate_support_account.py* and it is available at `GlanceSync support scripts`_.
 Inside this folder there is also documentation and all the material to create the base
 images with the support account.
 
@@ -62,11 +68,7 @@ created and the UUID of the virtual machine has not changed; in these cases the 
 end after printing by console the encrypted password. To encrypt this password we use
 the public GPG key provided by the FIWARE Lab administrator node. To decrypt the password
 you have to use your private GPG key, we have developed an specific script that can be
-found in '''xxx''' by:
-
-'''$dddd -f ssss'''
-
-For more details, go to section '''YTYY'''.
+found in section `Obtaining the password of the support account`_.
 
 The checking of the UUID is done because a template could be created from a running virtual
 machine when the support account is already created; the support account should be deleted
@@ -77,10 +79,9 @@ The next step, the script tries to download the userdata file from the metadata 
 This is something that cloudinit also do, but this script can do more attempts because
 it works in the background. However, if the metadata server is not accessible
 (e.g. because the network is down) the script will finally give up. In this case, it will
-use as failback a public SSH and public GPG keys hardcoded in the images.
-
-The failback keys are used also if the user modify the userdata content and removes the
-part that provides the keys.
+use as failback a public SSH and public GPG keys hardcoded in the images. The failback
+keys are used also if the user modify the userdata content and removes the part that
+provides the keys.
 
 Of course, the private pairs of the keys stored in the images cannot be shared among
 regions for the same reasons it is recommended that each region has its own keys.
@@ -106,7 +107,7 @@ This document only describes how to generate and use the keys through a software
 solution, but it is also possible use a hardware device, as an smartcard.
 The use of hardware solution is not documented here because it may be specific of
 each product, although some information will be provided AS IS to people
-insterested in an introduction and some references to start with.
+interested in an introduction and some references to start with.
 
 The advantage of a hardware solution is that it provides better security. It
 also make possible a full control and audit, because with a hardware solution
@@ -129,10 +130,15 @@ There is neither an only solution nor standard. Some devices are intended for SS
 keys, other for GPG keys but also support SSH. Not all devices are
 supported in Linux nor provided free/open source drivers.
 
-*An OpenPGP 2.0 card can be used with GPG and also with OpenSSH through the gpg-agent_
-*The gnuk project allows using some very cheap STM32F103 microcontrollers with an USB port (it install a firmware supporting the OpenPGP 2.0 card specification). This option is less secure than and smartcard or a specifically designed USB-token but safer than a software solution: http://www.fsij.org/doc-gnuk/intro.html
-*The OpenSC projects is about using smartcards and USB-tokens through PKCS#11/PKCS#15 with Linux. This project does not work with GPG, because GPG does not speak PKCS#11. However some devices might work with and old project (probably unmaintained) that do a bridge between PCKS#11 and GPG. https://github.com/OpenSC/OpenSC/wiki/Frequently-Asked-Questions
-
+- An OpenPGP 2.0 card can be used with GPG and also with OpenSSH through the gpg-agent_.
+- The `gnuk project`_ allows using some very cheap STM32F103 microcontrollers with an USB
+  port (it install a firmware supporting the OpenPGP 2.0 card specification). This option
+  is less secure than and smartcard or a specifically designed USB-token but safer than
+  a software solution.
+- The `OpenSC projects`_ is about using smartcards and USB-tokens through PKCS#11/PKCS#15
+  with Linux. This project does not work with GPG due to GPG does not speak PKCS#11.
+  However some devices might work with and old project (probably unmaintained) that do
+  a bridge between PCKS#11 and GPG.
 
 A very cheap solution (but not the more secure, most of the other devices are
 designed to resists more types of attacks, including analysing the power consume)
@@ -150,9 +156,11 @@ Generating a SSH key
 A public key can be generated from different ways, also using the option to
 generate a SSH key in the FIWARE portal. For more details about it, we suggest
 to follow the indications in the presentation `Setting up your infrastructure using FIWARE Cloud`_
- between slides 19 and 23. A simple way is running this OpenSSH command:
+between slides 19 and 23. A simple way is running this OpenSSH command:
 
- ssh-keygen -N "" -f support_key
+.. code::
+
+  ssh-keygen -N "" -f support_key
 
 The file support_key will contain the private key. The file support_key.pub is the
 public file that must be provided.
@@ -161,24 +169,31 @@ Generating a GPG key
 --------------------
 
 A gpg key can be generated with the following command:
- gpg --gen-key
+
+.. code::
+
+  gpg --gen-key
 
 It is not convenient to run this command in a virtual machine, because it needs
 a lot of entropy and the command will stop waiting for more information from
 /dev/random.
 
-'''It is very important that the name of the key be "Fiware support <region>"'''. If
-the key name does not start with ''Fiware support'' it will not be detected by the
+**It is very important that the name of the key be *Fiware support <region>*.** If
+the key name does not start with *Fiware support* it will not be detected by the
 script that creates the support account.
 
 The public key is exported with this command:
- gpg --armor --output public.gpg --export "Fiware support"
 
-The public.gpg is the file that must be provided.
+.. code::
 
-This is to decrypt a message:
+  gpg --armor --output public.gpg --export "Fiware support"
 
- gpg -d message_file
+The public.gpg is the file that must be provided. To decrypt a meessage just execute
+the following command:
+
+.. code::
+
+  gpg -d message_file
 
 Where message_file is the file in which we put the encrypted text (in our case it should
 be the text in the log file in which we see the encrypted password).
@@ -191,21 +206,23 @@ Obtaining the password of the support account
 
 The support account password is generated inside the VM, then encrypted with
 the GPG public key and printed to the console. The console logs can be obtained
-by the owner of the VM or by an administrator using the command ''nova console-log''
+by the owner of the VM or by an administrator using the command *nova console-log*
 
 The following script can be used to decrypt the password:
 
- #!/bin/bash
+.. code::
 
- export OS_AUTH_URL=http://130.206.112.3:5000/v2.0
+  #!/bin/bash
 
- cat <<EOF > extract.awk
- /-----BEGIN PGP MESSAGE-----/ {cp=1}
- /-----END PGP MESSAGE-----/ {cp=0; msg=msg $0}
- cp==1 {msg=msg $0 "\n"} ; END {print msg}'
- EOF
- nova console-log $1 | awk -f ./extract.awk |gpg -d
- rm extract.awk
+  export OS_AUTH_URL=http://130.206.112.3:5000/v2.0
+
+  cat <<EOF > extract.awk
+  /-----BEGIN PGP MESSAGE-----/ {cp=1}
+  /-----END PGP MESSAGE-----/ {cp=0; msg=msg $0}
+  cp==1 {msg=msg $0 "\n"} ; END {print msg}'
+  EOF
+  nova console-log $1 | awk -f ./extract.awk |gpg -d
+  rm extract.awk
 
 The script needs to be updated with the right values for OS_REGION_NAME,
 OS_TENANT_NAME, OS_USERNAME and OS_PASSWORD.
@@ -213,11 +230,15 @@ OS_TENANT_NAME, OS_USERNAME and OS_PASSWORD.
 
 To run the script just write:
 
- $ getpassword.sh <UUID>
+.. code::
+
+  $ getpassword.sh <UUID>
 
 or
 
- $ getpassword.sh <virtual machine name>
+.. code::
+
+  $ getpassword.sh <virtual machine name>
 
 where the UUID is the UUID of the virtual machine.
 
@@ -228,5 +249,7 @@ Top_
 .. _FIWARE: http://www.fiware.org/
 .. _protocol used by OpenSSH's ssh-agent: http://api.libssh.org/rfc/PROTOCOL.agent
 .. _`GlanceSync support scripts`: https://github.com/telefonicaid/fiware-glancesync/blob/develop/scripts/support/
-.. _gpg-agent_: https://gnupg.org/documentation/manuals/gnupg-2.0/Invoking-GPG_002dAGENT.html
-.. _`Setting up your infrastructure using FIWARE Cloud`_: http://www.slideshare.net/flopezaguilar/setting-up-your-virtual-infrastructure-using-fi-lab-cloud-32388357
+.. _gpg-agent: https://gnupg.org/documentation/manuals/gnupg-2.0/Invoking-GPG_002dAGENT.html
+.. _`Setting up your infrastructure using FIWARE Cloud`: http://www.slideshare.net/flopezaguilar/setting-up-your-virtual-infrastructure-using-fi-lab-cloud-32388357
+.. _`gnuk project`: http://www.fsij.org/doc-gnuk/intro.html
+.. _`OpenSC projects`: https://github.com/OpenSC/OpenSC/wiki/Frequently-Asked-Questions
