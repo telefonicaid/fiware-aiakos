@@ -1,13 +1,32 @@
-===============
- FIWARE Aiakos
-===============
+.. _Top:
+
+FIWARE Aiakos
+*************
 
 |Build Status| |Coverage Status|
+
+.. contents:: :local:
+
+Introduction
+============
 
 Server with public API to manage ssh/gpg public keys for the support user of each 
 `FIWARE Lab`_ node.
 
 This project is part of FIWARE_.
+
+Any feedback on this documentation is highly welcome, including bugs, typos
+or things you think should be included but are not. You can use
+`github issues`_
+to provide feedback.
+
+Overall description
+===================
+
+Aiakos is a service developed to store the public keys corresponding to each FIWARE
+Lab node in order to secure the access to the virtual machines instantiated in the
+FIWARE Lab. The description of all this process and why we need to do it can be
+found in the Generating support keys.
 
 API Overview
 ============
