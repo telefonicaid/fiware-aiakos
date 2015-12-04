@@ -29,7 +29,7 @@ Overall description
 Aiakos is a service developed to store the public keys corresponding to each FIWARE
 Lab node in order to secure the access to the virtual machines instantiated in the
 FIWARE Lab. The description of all this process and why we need to do it can be
-found in the Generating support keys.
+found in the `Generating support keys <doc/README.rst>`.
 
 Top_
 
