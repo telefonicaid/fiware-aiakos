@@ -33,6 +33,8 @@
     "grunt-gjslint": "^0.1.6",
     "grunt-dox": "^0.5.0",
     "grunt-mkdir": "^0.1.2",
-    "sinon": "^1.17.2"
+    "sinon": "^1.17.2",
+    "closure-linter-wrapper": "^0.2.11",
+    "xunit-file": "^0.0.9"
   }
 }

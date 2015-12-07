@@ -18,15 +18,13 @@
 
 var assert = require('assert'),
     v1 = require('../../lib/routes/v1'),
-    sinon = require('sinon'),
-    fs = require('fs');
-
+    sinon = require('sinon');
 
 /* jshint multistr: true */
 suite('v1', function () {
 
     suiteSetup(function() {
-        v1.setKeysPath('./test/unit/')
+        v1.setKeysPath('./test/unit/');
     });
 
     test('should_have_a_validate_region_method', function () {
