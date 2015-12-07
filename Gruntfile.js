@@ -186,6 +186,7 @@ module.exports = function (grunt) {
                     '-x "<%= dirs.test[0] %>" ' +
                     '-x "public" ' +
                     '-x "views" ' +
+                    '--include-all-sources ' +
                     '--root <%= dirs.lib[0] %>/ ' +
                     '--dir <%= dirs.reportCoverage[0] %> -- ' +
                     '\\"`npm root -g`/grunt-cli/bin/grunt\\" test >/dev/null && ' +

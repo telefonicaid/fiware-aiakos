@@ -130,9 +130,9 @@ build)
 		sonar.projectDescription=$PROJECT_DESC
 		sonar.language=js
 		sonar.sourceEncoding=UTF-8
-		sonar.sources=lib/
+		sonar.sources=.
 		sonar.tests=test/
-		sonar.exclusions=lib/public/javascripts/**.js,lib/www.js,lib/oauth2.js
+		sonar.exclusions=tests/**,lib/public/**,**/doc/**,tools/**,Gruntfile.js
 		# coverage
 		sonar.dynamicAnalysis=reuseReports
 		sonar.cobertura.reportPath=$SONAR_COVERAGE_REPORT_RELATIVE_PATH
