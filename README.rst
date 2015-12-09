@@ -127,5 +127,5 @@ Top_
 .. _FIWARE: http://www.fiware.org/
 .. _FIWARE Lab: https://www.fiware.org/lab/
 .. _`github issues`: https://github.com/telefonicaid/fiware-aiakos/issues
-.. _`Generating support keys`: https://github.com/telefonicaid/fiware-aiakos/blob/develop/doc/README.rst
-.. _`Dockerfile`: https://github.com/telefonicaid/fiware-aiakos/blob/develop/Dockerfile
+.. _`Generating support keys`: doc/README.rst
+.. _`Dockerfile`: Dockerfile
