@@ -63,37 +63,34 @@ The support account is created by a script invoked at boot time. This script is 
 Inside this folder there is also documentation and all the material to create the base
 images with the support account.
 
-The first thing that the script has to do is to check if a support account is not already
-created and the UUID of the virtual machine has not changed; in these cases the script
-end after printing by console the encrypted password. To encrypt this password we use
-the public GPG key provided by the FIWARE Lab administrator node. To decrypt the password
-you have to use your private GPG key, we have developed an specific script that can be
-found in section `Obtaining the password of the support account`_.
+The script tries to download the userdata file from the metadata server. This is something
+that cloudinit also do, but this script can do more attempts because it works in the
+background. However, if the metadata server is not accessible (e.g. because the network is
+down) the script will finally give up. In this case, it will use a failback, a public SSH
+and public GPG keys hardcoded in the images. The failback keys are used also if the user
+modify the userdata content and removes the part that provides the keys.
 
-The checking of the UUID is done because a template could be created from a running virtual
-machine when the support account is already created; the support account should be deleted
-before doing the snapshot, otherwise the password of the support account will be the same
-in all the images instantiated from that template.
+Of course, the private key pairs hardcoded in the images cannot be shared among regions
+for the same reasons it is recommended that each region has its own keys. However a
+procedure could be activated to request that the support password of a specific virtual
+machine is being encrypted using the public GPG key of the region asking for it.
 
-The next step, the script tries to download the userdata file from the metadata server.
-This is something that cloudinit also do, but this script can do more attempts because
-it works in the background. However, if the metadata server is not accessible
-(e.g. because the network is down) the script will finally give up. In this case, it will
-use a failback, a public SSH and public GPG keys hardcoded in the images. The failback
-keys are used also if the user modify the userdata content and removes the part that
-provides the keys.
+Finally, it must be considered that the support account can be disabled by the user, who
+has full control of the virtual machine. For example, the support account can be deleted
+or its password changed. Also the script that create the support account can be modified
+or deleted. In those cases, the administrator looses the control over the support of the
+virtual machine.
 
-Of course, the private key pairs hardcoded in the images cannot be shared among
-regions for the same reasons it is recommended that each region has its own keys.
-However a procedure could be activated to request that the support password of a
-specific virtual machine is being encrypted using the public GPG key of the region
-asking for it.
+Note that the script is run at boot time, but the support account and password only should
+be generated in the first boot of the virtual machine. However, the encrypted password must
+be printed at each boot, because the console logs are clean when the virtual machine is
+rebooted.
 
-Finally, it must be considered that the support account can be disabled by the user,
-who has full control of the virtual machine. For example, the support account can be
-deleted or its password changed. Also the script that create the support account can
-be modified or deleted. In those cases, the administrator looses the control over the
-support of the virtual machine.
+It is important to delete the support account before making a snapshot to be used as template
+of new images; indeed this is one of the steps than the procedure to create GE images do.
+Otherwise all the instantiated VMs will have the same password in the support account. The
+script try to detect this checking if the UUID of the virtual machine has changed, but anyway
+during a few minutes the password might remain unmodified.
 
 Top_
 

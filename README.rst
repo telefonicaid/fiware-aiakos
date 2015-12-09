@@ -17,8 +17,7 @@ This project is part of FIWARE_.
 
 Any feedback on this documentation is highly welcome, including bugs, typos
 or things you think should be included but are not. You can use
-`github issues`_
-to provide feedback.
+`github issues`_ to provide feedback.
 
 Top_
 
@@ -98,7 +97,7 @@ Top_
 Docker image
 ------------
 
-You can use this  `Dockerfile <Dockerfile>`_ to launch/execute the Docker image and container::
+You can use this  `Dockerfile <Dockerfile>` to launch/execute the Docker image and container::
 
     $ docker build -t fiwareaiakos .
     $ docker run -p 3000:3000 -d fiwareaiakos
@@ -127,3 +126,4 @@ Top_
 
 .. _FIWARE: http://www.fiware.org/
 .. _FIWARE Lab: https://www.fiware.org/lab/
+.. _`github issues`: https://github.com/telefonicaid/fiware-aiakos/issues
