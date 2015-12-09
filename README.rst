@@ -28,7 +28,7 @@ Overall description
 Aiakos is a service developed to store the public keys corresponding to each FIWARE
 Lab node in order to secure the access to the virtual machines instantiated in the
 FIWARE Lab. The description of all this process and why we need to do it can be
-found in the `Generating support keys <doc/README.rst>`.
+found in the :file:`Generating support keys <doc/README.rst>`.
 
 Top_
 
@@ -97,7 +97,7 @@ Top_
 Docker image
 ------------
 
-You can use this  `Dockerfile <Dockerfile>` to launch/execute the Docker image and container::
+You can use this  :file:`Dockerfile` to launch/execute the Docker image and container::
 
     $ docker build -t fiwareaiakos .
     $ docker run -p 3000:3000 -d fiwareaiakos
