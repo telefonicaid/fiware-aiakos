@@ -45,7 +45,12 @@ To query the keys, you should use the next operations::
     GET /v1/support/<region_name>/sshkey  (text/plain)
     
     GET /v1/support/<region_name>/gpgkey  (text/plain)
-    
+
+To upload the keys, you should use the next operation, adding payload with the key::
+
+    POST /v1/support/ (text/plain)
+
+    (Use X-Auth-Token in header)
 Top_
 
 
