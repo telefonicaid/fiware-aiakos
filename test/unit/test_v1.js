@@ -148,6 +148,7 @@ suite('v1', function () {
         res.write = sinon.stub();
         res.type = sinon.stub();
         res.setHeader = sinon.stub();
+        res.end = sinon.spy();
 
         req.body = body;
         req.header = sinon.stub();
@@ -163,6 +164,7 @@ suite('v1', function () {
         assert(res.setHeader.withArgs().calledOnce);
         assert(res.type.calledOnce);
         assert(res.write.withArgs(body, 'utf8').calledOnce);
+        assert(res.end.calledOnce);
 
 
     });
@@ -174,10 +176,12 @@ suite('v1', function () {
             res = sinon.stub();
 
         res.status = sinon.stub();
+        res.end = sinon.spy();
 
         req.body = body;
         req.header = sinon.stub();
         req.header.withArgs('region').returns('region1');
+
 
         //when
         v1.postKey(req, res);
@@ -185,6 +189,7 @@ suite('v1', function () {
         //then
         assert(req.header.calledOnce);
         assert(res.status.withArgs(400).calledOnce);
+        assert(res.end.calledOnce);
 
 
     });
