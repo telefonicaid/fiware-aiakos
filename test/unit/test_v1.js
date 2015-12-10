@@ -145,6 +145,9 @@ suite('v1', function () {
             fs.writeFile.restore();
         });
         res.status = sinon.stub();
+        res.write = sinon.stub();
+        res.type = sinon.stub();
+        res.setHeader = sinon.stub();
 
         req.body = body;
         req.header = sinon.stub();
@@ -157,6 +160,9 @@ suite('v1', function () {
         assert(req.header.calledOnce);
         assert(fsStub.calledOnce);
         assert(res.status.withArgs(201).calledOnce);
+        assert(res.setHeader.withArgs().calledOnce);
+        assert(res.type.calledOnce);
+        assert(res.write.withArgs(body, 'utf8').calledOnce);
 
 
     });
