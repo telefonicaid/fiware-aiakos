@@ -133,7 +133,7 @@ suite('v1', function () {
         assert(key === null);
     });
 
-    test('should_save_key_to_disk_when_post_a_key', function(){
+    test('should_save_key_to_disk_when_post_a_key', function() {
         //given
         var body = 'ssh-rsa fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com';
         var req = sinon.stub(),
@@ -161,7 +161,7 @@ suite('v1', function () {
 
     });
 
-    test('should_return_error_when_post_an_invalid_key', function(){
+    test('should_return_error_when_post_an_invalid_key', function() {
         //given
         var body = 'kkkkk fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com';
         var req = sinon.stub(),
