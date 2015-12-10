@@ -153,6 +153,8 @@ suite('v1', function () {
         req.body = body;
         req.header = sinon.stub();
         req.header.withArgs('region').returns('region1');
+        req.is = sinon.stub();
+        req.is.withArgs('text').returns(true);
 
         //when
         v1.postKey(req, res);
@@ -181,6 +183,8 @@ suite('v1', function () {
         req.body = body;
         req.header = sinon.stub();
         req.header.withArgs('region').returns('region1');
+        req.is = sinon.stub();
+        req.is.withArgs('text').returns(true);
 
 
         //when
@@ -193,5 +197,26 @@ suite('v1', function () {
 
 
     });
+
+        test('should_return_error_415_when_post_has_invalid_content_type', function() {
+        //given
+        var req = sinon.stub(),
+            res = sinon.stub();
+
+        res.status = sinon.stub();
+        res.end = sinon.spy();
+        req.is = sinon.stub();
+        req.is.withArgs('text').returns(false);
+
+        //when
+        v1.postKey(req, res);
+
+        //then
+        assert(res.status.withArgs(415).calledOnce);
+        assert(res.end.calledOnce);
+
+
+    });
+
 
 });
