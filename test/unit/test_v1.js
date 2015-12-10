@@ -18,7 +18,8 @@
 
 var assert = require('assert'),
     v1 = require('../../lib/routes/v1'),
-    sinon = require('sinon');
+    sinon = require('sinon'),
+    fs = require('fs');
 
 /* jshint multistr: true */
 suite('v1', function () {
@@ -75,8 +76,8 @@ suite('v1', function () {
 
     test('should_return_a_valid_ssh_key_for_valid_region', function() {
         var req = sinon.stub(),
-            res = sinon.stub(),
-            next = sinon.stub();
+            res = sinon.stub();
+
         req.params = sinon.stub();
         req.params.region = 'region1';
         req.params.key = 'sshkey';
@@ -85,7 +86,7 @@ suite('v1', function () {
         res.type = sinon.spy();
         res.end = sinon.spy();
 
-        v1.getKey(req, res, next);
+        v1.getKey(req, res);
 
         assert(res.write.calledOnce);
         assert(res.setHeader.calledOnce);
@@ -94,21 +95,91 @@ suite('v1', function () {
 
     });
 
-    test('should_return_a_valid_ssh_key_for_valid_region', function() {
+    test('should_discover_ssh_key', function() {
+        //given
+        var content = 'ssh-rsa fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com';
+
+        //when
+
+        var key = v1.discoverKey(content);
+
+
+        //then
+        assert(key === 'ssh');
+    });
+
+    test('should_discover_gpg_key', function() {
+        //given
+        var content = '-----BEGIN PGP PUBLIC KEY BLOCK-----';
+
+        //when
+
+        var key = v1.discoverKey(content);
+
+        //then
+        assert(key === 'gpg');
+    });
+
+
+    test('should_return_null_in_discover_key_with_invalid_content', function() {
+        //given
+        var content = 'abcdefghijklmnopqrstuvwxyz';
+
+        //when
+
+        var key = v1.discoverKey(content);
+
+        //then
+        assert(key === null);
+    });
+
+    test('should_save_key_to_disk_when_post_a_key', function(){
+        //given
+        var body = 'ssh-rsa fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com';
         var req = sinon.stub(),
-            res = sinon.stub(),
-            next = sinon.stub();
-        req.params = sinon.stub();
-        req.params.region = 'invalidName';
-        req.params.key = 'sshkey';
-        res.setHeader = sinon.spy();
-        res.type = sinon.spy();
-        res.end = sinon.spy();
+            res = sinon.stub();
 
-        v1.getKey(req, res, next);
+        var fsStub = sinon.stub(fs, 'writeFile', function (path, content, callbackWriteFile) {
+            console.log('fake fs.writeFile');
+            callbackWriteFile();
+            fs.writeFile.restore();
+        });
+        res.status = sinon.stub();
 
-        assert(res.type.calledOnce);
-        assert(res.end.calledOnce);
+        req.body = body;
+        req.header = sinon.stub();
+        req.header.withArgs('region').returns('region1');
+
+        //when
+        v1.postKey(req, res);
+
+        //then
+        assert(req.header.calledOnce);
+        assert(fsStub.calledOnce);
+        assert(res.status.withArgs(201).calledOnce);
+
+
+    });
+
+    test('should_return_error_when_post_an_invalid_key', function(){
+        //given
+        var body = 'kkkkk fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com';
+        var req = sinon.stub(),
+            res = sinon.stub();
+
+        res.status = sinon.stub();
+
+        req.body = body;
+        req.header = sinon.stub();
+        req.header.withArgs('region').returns('region1');
+
+        //when
+        v1.postKey(req, res);
+
+        //then
+        assert(req.header.calledOnce);
+        assert(res.status.withArgs(400).calledOnce);
+
 
     });
 
