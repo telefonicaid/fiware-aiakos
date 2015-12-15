@@ -19,6 +19,7 @@
 var assert = require('assert'),
     v1 = require('../../lib/routes/v1'),
     sinon = require('sinon'),
+    openstack = require('../../lib/routes/openstack'),
     fs = require('fs');
 
 /* jshint multistr: true */
@@ -133,6 +134,35 @@ suite('v1', function () {
         assert(key === null);
     });
 
+    test('should_post_a_key', function() {
+        //given
+        var body = 'ssh-rsa fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com';
+        var req = sinon.stub(),
+            res = sinon.stub();
+
+        var openstackStub = sinon.stub(openstack, 'validateTokenAndGetRegion', function (token) {
+            console.log('fake openstack.validateTokenAndGetRegion');
+            openstack.validateTokenAndGetRegion.restore();
+            assert(token === '12345678');
+        });
+
+
+        req.body = body;
+        req.header = sinon.stub();
+        req.header.withArgs('X-Auth-Token').returns('12345678');
+        req.is = sinon.stub();
+        req.is.withArgs('text').returns(true);
+
+        //when
+        v1.postKey(req, res);
+
+        //then
+        assert(req.header.calledOnce);
+        assert(openstackStub.calledOnce);
+
+
+    });
+
     test('should_save_key_to_disk_when_post_a_key', function() {
         //given
         var body = 'ssh-rsa fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com';
@@ -157,10 +187,9 @@ suite('v1', function () {
         req.is.withArgs('text').returns(true);
 
         //when
-        v1.postKey(req, res);
+        v1.saveKeyToFile('region1', body, res);
 
         //then
-        assert(req.header.calledOnce);
         assert(fsStub.calledOnce);
         assert(res.status.withArgs(201).calledOnce);
         assert(res.setHeader.withArgs().calledOnce);
@@ -188,17 +217,20 @@ suite('v1', function () {
 
 
         //when
-        v1.postKey(req, res);
+        try {
+            v1.saveKeyToFile('region1', body, res);
+            assert(false);
 
-        //then
-        assert(req.header.calledOnce);
-        assert(res.status.withArgs(400).calledOnce);
-        assert(res.end.calledOnce);
+        } catch (Error) {
+            //then
+            assert(true);
+
+        }
 
 
     });
 
-        test('should_return_error_415_when_post_has_invalid_content_type', function() {
+    test('should_return_error_415_when_post_has_invalid_content_type', function() {
         //given
         var req = sinon.stub(),
             res = sinon.stub();
