@@ -1,0 +1,15 @@
+{
+    "environment": {
+        "name": "development"
+    },
+    "aiakos": {
+        "protocol": "http",
+        "host": "",
+        "port": "",
+        "resource": "/v1",
+        "host_user": "root",
+        "host_password": "",
+        "host_private_key_location": "./resources/my_rsa_key",
+        "aiakos_keyfiles_path": "/opt/fiware/fiware-aiakos/lib/public/keys"
+    }
+}
