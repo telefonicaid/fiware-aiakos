@@ -39,7 +39,7 @@ AIAKOS_SUPPORT_GPGKEY = AIAKOS_SUPPORT_BASE + "/{region_name}/gpgkey"
 class AiakosSupportApiClient(RestClient):
 
     """
-    This class implements the a RestClient for the Support resource of the Aiakos API.
+    This class implements the RestClient for the Support resource of the Aiakos API.
     """
 
     def __init__(self, protocol, host, port, base_resource, headers):
