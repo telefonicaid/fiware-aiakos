@@ -166,8 +166,7 @@ suite('v1', function () {
     test('should_save_key_to_disk_when_post_a_key', function() {
         //given
         var body = 'ssh-rsa fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com';
-        var req = sinon.stub(),
-            res = sinon.stub();
+        var res = sinon.stub();
 
         var fsStub = sinon.stub(fs, 'writeFile', function (path, content, callbackWriteFile) {
             console.log('fake fs.writeFile');
@@ -179,12 +178,6 @@ suite('v1', function () {
         res.type = sinon.stub();
         res.setHeader = sinon.stub();
         res.end = sinon.spy();
-
-        req.body = body;
-        req.header = sinon.stub();
-        req.header.withArgs('region').returns('region1');
-        req.is = sinon.stub();
-        req.is.withArgs('text').returns(true);
 
         //when
         v1.saveKeyToFile('region1', body, res);
@@ -200,6 +193,23 @@ suite('v1', function () {
 
     });
 
+
+    test('should_return_401_with_invalid_region', function() {
+        //given
+        var body = 'ssh-rsa fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com';
+        var res = sinon.stub();
+
+        res.status = sinon.stub();
+        res.end = sinon.spy();
+
+        //when
+        v1.saveKeyToFile(undefined, body, res);
+
+        //then
+        assert(res.status.withArgs(401).calledOnce);
+        assert(res.end.calledOnce);
+    });
+
     test('should_return_error_when_post_an_invalid_key', function() {
         //given
         var body = 'kkkkk fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com';
@@ -211,7 +221,6 @@ suite('v1', function () {
 
         req.body = body;
         req.header = sinon.stub();
-        req.header.withArgs('region').returns('region1');
         req.is = sinon.stub();
         req.is.withArgs('text').returns(true);
 

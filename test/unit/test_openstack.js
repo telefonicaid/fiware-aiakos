@@ -108,6 +108,36 @@ suite('openstack', function () {
             response.setEncoding = sinon.stub();
             response.headers = sinon.stub();
             response.headers['x-subject-token'] = '123123';
+            response.statusCode = 201;
+            callback(response);
+            response.emit('end');
+            return request;
+        });
+        //when
+        openstack.postAdminToken( function() {
+            http.request.restore();
+            done();
+        });
+        //then
+        assert(request.write.calledOnce);
+        assert(request.end.calledOnce);
+        assert(request.setTimeout.calledOnce);
+        assert(201 === response.statusCode);
+        assert.equal('POST', requestStub.getCall(0).args[0].method);
+
+    });
+
+    test('should_return_401_with_invalid_admin_token', function(done) {
+        //given
+        var request = new EventEmitter();
+        var response = new EventEmitter();
+        request.end = sinon.spy();
+        request.write = sinon.spy();
+        request.setTimeout = sinon.spy();
+
+        var requestStub = sinon.stub(http, 'request', function (options, callback) {
+            response.setEncoding = sinon.stub();
+            response.statusCode=401;
             callback(response);
             response.emit('end');
             return request;
