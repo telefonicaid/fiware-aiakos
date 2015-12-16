@@ -6,13 +6,14 @@
 
 var app = require('../lib/app');
 var debug = require('debug')('fiware-aiakos:server');
+var config = require('../lib/config').data;
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || config.listenPort);
 app.set('port', port);
 
 /**
