@@ -137,6 +137,7 @@ def execute_request_http_verb_key(context, http_verb, key_type, region_name):
             headers={'accept': 'text/plain', 'content-type': 'text/plain'},
             region_name=region_name)
 
+
 @step(u'I execute a "(?P<http_verb>get|post|put|delete)" request to support/"(?P<region_name>\w*)" resource')
 def execute_request_http_verb_region(context, http_verb, region_name):
     """
@@ -211,6 +212,7 @@ def execute_request_http_verb_support(context, http_verb, region_name):
             headers={'accept': 'text/plain', 'content-type': 'text/plain'},
             region_name=region_name)
 
+
 @step(u'I receive a HTTP "(?P<status>\w*)" .*')
 def http_status_code(context, status):
     """
@@ -239,6 +241,7 @@ def accept_header_is_set(context, accept_header):
     Step: The accept header is set to the given one, to force 'invalid' conditions.
     """
     context.aiakos_client.update_representation_headers(content_type=None, accept=accept_header)
+
 
 @step(u'the following representation headers are set')
 def representatio_header_are_set(context):

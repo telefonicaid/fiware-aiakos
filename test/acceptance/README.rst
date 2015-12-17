@@ -71,7 +71,7 @@ Prerequisites
 - Python 2.7 or newer (2.x) (https://www.python.org/downloads/).
 - pip (https://pypi.python.org/pypi/pip).
 - virtualenv (https://pypi.python.org/pypi/virtualenv).
-- Aiakos (https://pdihub.hi.inet/fiware/fiware-aiakos/).
+- Aiakos (https://github.com/telefonicaid/fiware-aiakos).
 
 Top_
 
@@ -80,7 +80,7 @@ Settings
 --------
 
 Before executing the acceptance tests, you will need configure the properties file. To execute acceptance test on the
-experimentation environment, you will have to configured the file `resources/settings.json` properly:
+experimentation environment, you will have to configured the file `config/settings.json` properly:
 
 - You will have to configure API endpoints
 - and the host credentials where Aiakos API is running for remote validations.
@@ -90,13 +90,12 @@ experimentation environment, you will have to configured the file `resources/set
 Configuration parameters (settings):
 
 - **protocol**: Aiakos API Protocol (HTTP/HTTPS)
-- **host**: Aiakos API host.
+- **host**: Aiakos API host and Name of the host (to be used as part as a ssh connection).
 - **port**: Aiakos API port.
 - **resource**: Aiakos API base resource (e.i: /v1)
-- **host_name**: Name of the host (to be used as part as a ssh connection).
 - **host_user**: User name of the host.
 - **host_password**: Password for the previous user.
-- **host_key**: RSA key for ssh connections instead of previous user/password.
+- **host_private_key_location**: RSA key for ssh connections instead of previous user/password.
   If protected, _host_password_ should be set with the correct value to decrypt.
 
 Top_
@@ -140,14 +139,19 @@ Top_
 
 Test case execution using virtualenv
 ------------------------------------
-1. Create a virtual environment somewhere *(virtualenv $WORKON_HOME/venv)*.
-#. Activate the virtual environment *(source $WORKON_HOME/venv/bin/activate)*.
-#. Go to *$AIAKOS_HOME/tests/acceptance* folder in the project.
-#. Install the requirements for the acceptance tests in the virtual environment *(pip install -r requirements.txt --allow-all-external)*.
-#. For scripts acceptance tests, install the requirements of the clients in the virtual environment.
-    # Go to scripts directory cd *$AIAKOS_HOME/scripts/getnids* folder in the project.
-    # Install the requirements for the script in the virtual environment *(pip install -r requirements.txt --allow-all-external)*.
-    # Return to *$AIAKOS_HOME/tests/acceptance* folder.
+1. Create a virtual environment somewhere ::
+
+    $> virtualenv $WORKON_HOME/venv
+
+#. Activate the virtual environment ::
+
+    $> source $WORKON_HOME/venv/bin/activate
+
+#. Go to `$AIAKOS_HOME/tests/acceptance` folder in the project
+#. Install the requirements for the acceptance tests in the virtual environment ::
+
+    $> pip install -r requirements.txt --allow-all-external
+
 
 Top_
 
