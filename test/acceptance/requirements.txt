@@ -1,0 +1,2 @@
+git+https://github.com/qaenablers/python-qautils@v1.2.0
+PyHamcrest==1.8.3
