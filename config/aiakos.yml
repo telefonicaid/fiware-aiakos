@@ -8,5 +8,8 @@ app:
 #  openstack admin (mandatory)
 #-----------------------------------------------------------------------------
 openstack:
+  host: 'cloud.lab.fiware.org'
+  port: '4731'
   username: ''		# admin openstack user
   password: ''		# admin openstack password
+
