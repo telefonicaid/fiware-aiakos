@@ -8,8 +8,13 @@ app:
 #  openstack admin (mandatory)
 #-----------------------------------------------------------------------------
 openstack:
+  host: ''
+  port: ''
+  path: ''
   username: ''		# admin openstack user
   password: ''		# admin openstack password
+  content-type: 'application/json'
+  accept: 'application/json'
 
 #-----------------------------------------------------------------------------
 #  openstack regions administrators (mandatory)

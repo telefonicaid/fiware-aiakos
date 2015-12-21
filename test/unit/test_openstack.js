@@ -53,14 +53,14 @@ suite('openstack', function () {
 
     });
 
-    test('should_parse_region_name_and_match_with_configuration', function() {
+    test('should_parse_username_from_config_for_PiraeusN', function() {
         //given
-        config.regions.names = [{'admin-regionName': 'region1'}];
+        config.regions.names = [{'admin-athens-neurorepublic': 'PiraeusN'}];
         //when
-        var region = openstack.parseRegionNameFromUserName('admin-regionName');
+        var region = openstack.parseRegionNameFromUserName('admin-athens-neurorepublic');
         //then
 
-        assert('region1' === region);
+        assert('PiraeusN' === region);
 
     });
 

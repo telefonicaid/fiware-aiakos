@@ -10,8 +10,11 @@ app:
 openstack:
   host: 'cloud.lab.fiware.org'
   port: '4731'
+  path: '/v3/auth/tokens'
   username: ''		# admin openstack user
   password: ''		# admin openstack password
+  content-type: 'application/json'
+  accept: 'application/json'
 
 #-----------------------------------------------------------------------------
 #  openstack regions administrators (mandatory)
