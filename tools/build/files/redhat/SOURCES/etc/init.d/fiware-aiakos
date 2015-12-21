@@ -20,7 +20,7 @@ DESC="FIWARE Aiakos"
 NAME=fiware-aiakos
 DAEMON_DIR=/opt/fiware/$NAME
 DAEMON_BIN=bin/www
-DAEMON_ARGS=""
+DAEMON_ARGS="--config-file config/aiakos.yml"
 DAEMON_USER=fiware
 FOREVER_DIR=/var/run/fiware/.forever
 LOGFILE=/var/log/$NAME/$NAME.log
@@ -63,7 +63,7 @@ do_checkup()
 do_start()
 {
 	local options="$FOREVER_OPTS --minUptime 1000 --spinSleepTime 1000"
-	local startup="$FOREVER start $options --uid $NAME $DAEMON_BIN"
+	local startup="$FOREVER start $options --uid $NAME $DAEMON_BIN $DAEMON_ARGS"
 	cd $DAEMON_DIR \
 	&& do_checkup \
 	&& action $"Starting $NAME:" daemon --user=$DAEMON_USER "$startup"
