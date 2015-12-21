@@ -13,3 +13,9 @@ openstack:
   username: ''		# admin openstack user
   password: ''		# admin openstack password
 
+#-----------------------------------------------------------------------------
+#  openstack regions administrators (mandatory)
+#-----------------------------------------------------------------------------
+regions:
+  names: []         # array of {'username': 'regionName'}
+

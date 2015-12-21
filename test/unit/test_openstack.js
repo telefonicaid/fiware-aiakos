@@ -18,6 +18,7 @@
 
 var assert = require('assert'),
     openstack = require('../../lib/routes/openstack'),
+    config = require('../../lib/config').data,
     sinon = require('sinon'),
     http = require('http'),
     EventEmitter = require('events').EventEmitter;
@@ -49,6 +50,17 @@ suite('openstack', function () {
             assert(true);
         }
 
+
+    });
+
+    test('should_parse_region_name_and_match_with_configuration', function() {
+        //given
+        config.regions.names = [{'admin-regionName': 'region1'}];
+        //when
+        var region = openstack.parseRegionNameFromUserName('admin-regionName');
+        //then
+
+        assert('region1' === region);
 
     });
 
@@ -137,7 +149,7 @@ suite('openstack', function () {
 
         var requestStub = sinon.stub(http, 'request', function (options, callback) {
             response.setEncoding = sinon.stub();
-            response.statusCode=401;
+            response.statusCode = 401;
             callback(response);
             response.emit('end');
             return request;
