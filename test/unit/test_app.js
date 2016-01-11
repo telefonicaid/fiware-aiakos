@@ -16,15 +16,28 @@
  */
 'use strict';
 
-var express = require('express'),
-    router = express.Router(),
-    logger = require('../logger');
 
-/* GET home page. */
-router.get('/', function(req, res) {
-  logger.info('call to index');
-  res.render('index', { title: 'Public Admin Key Server' });
+var assert = require('assert'),
+    app = require('../../lib/app'),
+    sinon = require('sinon');
+
+
+/* jshint multistr: true */
+suite('app', function () {
+
+
+    test('should_build_express_app', function () {
+
+        var expressApp = sinon.stub();
+        expressApp.use = sinon.spy();
+        expressApp.set = sinon.spy();
+        expressApp.get = sinon.spy();
+
+        app.setup(expressApp);
+        assert(expressApp.use.withArgs('/').called);
+        assert(expressApp.use.withArgs('/v1').called);
+        assert(expressApp.set.called);
+        assert(expressApp.get.called);
+
+    });
 });
-
-/** @export */
-module.exports = router;

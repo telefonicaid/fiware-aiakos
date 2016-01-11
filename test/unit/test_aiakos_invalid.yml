@@ -8,22 +8,17 @@ app:
 # Logging options section (mandatory)
 #----------------------------------------------------------------------------
 logging:
-  level: DEBUG				# Logging level
+  level: INFO				# Logging level
 
 #-----------------------------------------------------------------------------
 #  openstack admin (mandatory)
 #-----------------------------------------------------------------------------
 openstack:
-  host: 'cloud.lab.fiware.org'
-  port: '4731'
-  path: '/v3/auth/tokens'
+  host: ''
+  port: ''
+  path: ''
   username: ''		# admin openstack user
   password: ''		# admin openstack password
   content-type: 'application/json'
   accept: 'application/json'
 
-#-----------------------------------------------------------------------------
-#  openstack regions administrators (mandatory)
-#-----------------------------------------------------------------------------
-regions:
-  names: []         # array of {'username': 'regionName'}

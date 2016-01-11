@@ -38,11 +38,12 @@ suite('config', function () {
         assert.deepEqual(['INFO', 'Read configuration file'], result);
         assert.notEqual(config.data.openstack, undefined);
         assert.equal(config.data.default, false);
+        assert.equal(config.data.logLevel, 'INFO');
 
     });
 
 
-      test('should_fail_with_invalid_path', function () {
+    test('should_fail_with_invalid_path', function () {
         //Given
         var invalidFilename = path.join(__dirname, 'kk.yml');
 
@@ -51,9 +52,23 @@ suite('config', function () {
 
 
         //Then
-        assert.deepEqual(['WARN', 'Could not read configuration file'], result);
+        assert.deepEqual(['WARN',
+            'Configuration file: ENOENT, no such file or directory \'' + invalidFilename + '\''], result);
 
     });
 
+
+    test('should_fail_with_invalid_section', function () {
+        //Given
+        var invalidFilename = path.join(__dirname, 'test_aiakos_invalid.yml');
+
+        //When
+        var result = config.readConfigFile(invalidFilename);
+
+
+        //Then
+        assert.deepEqual(['WARN', 'Configuration file: no \"regions\" node found'], result);
+
+    });
 
 });
