@@ -55,7 +55,6 @@ class AiakosApiClient:
         self.base_resource = base_resource
 
         token = auth.init_auth()
-
         self.headers = {"X-Auth-Token": token}
 
         set_representation_headers(self.headers,

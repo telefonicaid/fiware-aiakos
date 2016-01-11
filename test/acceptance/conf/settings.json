@@ -5,8 +5,7 @@
     "aiakos": {
         "protocol": "http",
         "host": "",
-        "port": "3000",
-        "token": "",
+        "port": "",
         "resource": "/v1",
         "host_user": "root",
         "host_password": "",

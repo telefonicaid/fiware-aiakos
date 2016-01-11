@@ -229,8 +229,6 @@ def key_is_the_expected_one(context, key_type, key_node):
     Step: Check the response body. The key returned is the expected one.
     """
     keyfile_name = _get_keyfile_name_helper(key_type, key_node)
-    assert_that((keyfile_name, "hola"),
-                    "no hola.")
 
     ssh_key_filepath = os.path.join(RESOURCES_PATH, keyfile_name)
 
