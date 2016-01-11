@@ -32,7 +32,7 @@ from aiakos_client.client import AiakosApiClient
 from qautils.remote.fabric_utils import FabricUtils
 
 
-__author__ = "@jframos"
+__author__ = "Telefonica I+D"
 __copyright__ = "Copyright 2015"
 __license__ = " Apache License, Version 2.0"
 

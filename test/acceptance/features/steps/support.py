@@ -31,7 +31,7 @@ from aiakos_client.support_api_client import AIAKOS_SUPPORT_GPGKEY, AIAKOS_SUPPO
     AIAKOS_SUPPORT_REGION, AIAKOS_SUPPORT_BASE
 
 
-__author__ = "@jframos"
+__author__ = "Telefonica I+D"
 __copyright__ = "Copyright 2015"
 __license__ = " Apache License, Version 2.0"
 
@@ -58,6 +58,7 @@ def _upload_key_helper(context, key_type, keyfile_name, region_name):
     :param region_name (string): Region name.
     :return: None
     """
+    config = configuration_manager.config
     if key_type == "SSH":
         ssh_key_filepath = os.path.join(RESOURCES_PATH, keyfile_name)
         context.response_body, context.response = \
@@ -230,6 +231,7 @@ def key_is_the_expected_one(context, key_type, key_node):
     keyfile_name = _get_keyfile_name_helper(key_type, key_node)
 
     ssh_key_filepath = os.path.join(RESOURCES_PATH, keyfile_name)
+
     with open(ssh_key_filepath, 'r') as file_content:
         assert_that(context.response_body, is_(equal_to(file_content.read())),
                     "The retrieved SSH is not the expected one.")

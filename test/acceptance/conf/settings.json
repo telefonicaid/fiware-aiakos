@@ -10,6 +10,12 @@
         "host_user": "root",
         "host_password": "",
         "host_private_key_location": "./resources/my_rsa_key",
-        "aiakos_keyfiles_path": "/opt/fiware/fiware-aiakos/lib/public/keys"
+        "aiakos_keyfiles_path": "/opt/fiware/fiware-aiakos/lib/public/keys",
+        "os_username": "",
+        "os_tenant_name": "admin",
+        "os_password": "",
+        "os_tenant_id": "",
+        "os_domain_name": "default",
+        "os_auth_url": "http://cloud.lab.fi-ware.org:4731/v2.0"
     }
 }
