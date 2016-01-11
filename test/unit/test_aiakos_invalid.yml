@@ -22,9 +22,3 @@ openstack:
   content-type: 'application/json'
   accept: 'application/json'
 
-#-----------------------------------------------------------------------------
-#  openstack regions administrators (mandatory)
-#-----------------------------------------------------------------------------
-regions:
-  names: []         # array of {'regionName': 'username'}
-
