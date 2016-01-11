@@ -24,6 +24,7 @@
 
 from aiakos_client.support_api_client import AiakosSupportApiClient
 from qautils.http.headers_utils import set_representation_headers
+from commons.authentication import Authentication as auth
 
 
 __author__ = "@jframos"
@@ -53,7 +54,10 @@ class AiakosApiClient:
         self.port = port
         self.base_resource = base_resource
 
-        self.headers = dict()
+        token = auth.init_auth()
+
+        self.headers = {"X-Auth-Token": token}
+
         set_representation_headers(self.headers,
                                    content_type=HTTP_REPRESENTATION_HEADER_TEXT,
                                    accept=HTTP_REPRESENTATION_HEADER_TEXT)

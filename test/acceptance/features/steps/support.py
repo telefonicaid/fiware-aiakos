@@ -58,6 +58,7 @@ def _upload_key_helper(context, key_type, keyfile_name, region_name):
     :param region_name (string): Region name.
     :return: None
     """
+    config = configuration_manager.config
     if key_type == "SSH":
         ssh_key_filepath = os.path.join(RESOURCES_PATH, keyfile_name)
         context.response_body, context.response = \
@@ -228,8 +229,11 @@ def key_is_the_expected_one(context, key_type, key_node):
     Step: Check the response body. The key returned is the expected one.
     """
     keyfile_name = _get_keyfile_name_helper(key_type, key_node)
+    assert_that((keyfile_name, "hola"),
+                    "no hola.")
 
     ssh_key_filepath = os.path.join(RESOURCES_PATH, keyfile_name)
+
     with open(ssh_key_filepath, 'r') as file_content:
         assert_that(context.response_body, is_(equal_to(file_content.read())),
                     "The retrieved SSH is not the expected one.")

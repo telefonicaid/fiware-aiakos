@@ -20,5 +20,5 @@ openstack:
 #  openstack regions administrators (mandatory)
 #-----------------------------------------------------------------------------
 regions:
-  names: []         # array of {'username': 'regionName'}
+  names: [{'admin-spain','qaregion2'}]         # array of {'username': 'regionName'}
 
