@@ -31,7 +31,7 @@ from aiakos_client.support_api_client import AIAKOS_SUPPORT_GPGKEY, AIAKOS_SUPPO
     AIAKOS_SUPPORT_REGION, AIAKOS_SUPPORT_BASE
 
 
-__author__ = "@jframos"
+__author__ = "Telefonica I+D"
 __copyright__ = "Copyright 2015"
 __license__ = " Apache License, Version 2.0"
 

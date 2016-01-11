@@ -26,8 +26,7 @@ from aiakos_client.support_api_client import AiakosSupportApiClient
 from qautils.http.headers_utils import set_representation_headers
 from commons.authentication import Authentication as auth
 
-
-__author__ = "@jframos"
+__author__ = "Telefonica I+D"
 __copyright__ = "Copyright 2015"
 __license__ = " Apache License, Version 2.0"
 

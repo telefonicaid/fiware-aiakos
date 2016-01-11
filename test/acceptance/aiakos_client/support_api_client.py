@@ -26,7 +26,7 @@ from qautils.http.rest_client_utils import RestClient
 from qautils.http.rest_client_utils import API_ROOT_URL_ARG_NAME
 
 
-__author__ = "@jframos"
+__author__ = "Telefonica I+D"
 __copyright__ = "Copyright 2015"
 __license__ = " Apache License, Version 2.0"
 
