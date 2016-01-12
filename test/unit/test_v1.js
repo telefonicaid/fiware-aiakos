@@ -216,9 +216,6 @@ suite('v1', function () {
         var req = sinon.stub(),
             res = sinon.stub();
 
-        res.status = sinon.stub();
-        res.end = sinon.spy();
-
         req.body = body;
         req.header = sinon.stub();
         req.is = sinon.stub();
@@ -230,8 +227,9 @@ suite('v1', function () {
             v1.saveKeyToFile('region1', body, res);
             assert(false);
 
-        } catch (Error) {
+        } catch (error) {
             //then
+            assert(error.message === 'invalid key');
             assert(true);
 
         }
