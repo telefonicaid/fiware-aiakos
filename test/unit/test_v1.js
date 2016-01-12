@@ -254,6 +254,22 @@ suite('v1', function () {
         assert(res.status.withArgs(415).calledOnce);
         assert(res.end.calledOnce);
 
+    });
+
+    test('should_return_response_with_405', function() {
+        //given
+        var req = sinon.stub(),
+            res = sinon.stub();
+
+        res.status = sinon.stub();
+        res.render = sinon.stub();
+
+        //when
+        v1.methodNotAllowed(req, res);
+
+        //then
+        assert(res.status.withArgs(405).calledOnce);
+        assert(res.render.calledOnce);
 
     });
 
