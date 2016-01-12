@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../lib/app');
+var app = require('../lib/app').app;
 var debug = require('debug')('fiware-aiakos:server');
 var config = require('../lib/config').data;
 var http = require('http');

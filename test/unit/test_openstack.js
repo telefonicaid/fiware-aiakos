@@ -206,4 +206,45 @@ suite('openstack', function () {
         sinon.assert.callCount(requestStub, 2);
     });
 
+    test('should_return_401_if_timeout_validating_token', function() {
+        //given
+        var request = new EventEmitter();
+
+        request.setTimeout = sinon.spy(function (timeout, callback) {
+                callback();
+        });
+        request.end = sinon.spy();
+        request.write = sinon.spy();
+        request.abort = sinon.spy(function () {
+            var e = sinon.spy();
+            e.code = 'ECONNRESET';
+            this.emit('error', e);
+            http.request.restore();
+        });
+
+        var requestStub = sinon.stub(http, 'request', function (options, callback) {
+            var response = new EventEmitter();
+            response.setEncoding = sinon.stub();
+            callback(response);
+
+            return request;
+        });
+        //when
+        try {
+
+            openstack.getValidateToken('1234admintoken', '1234usertoken', function() {
+                http.request.restore();
+                assert(false);
+
+            });
+        } catch (e) {
+            //then
+            assert(request.abort.calledOnce);
+            assert(request.setTimeout.calledOnce);
+            assert.equal('GET', requestStub.getCall(0).args[0].method);
+
+        }
+
+    });
+
 });
