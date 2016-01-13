@@ -37,7 +37,6 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
           | SSH      |
           | GPG      |
 
-  @skip @bug @CLAUDIA-5866
   Scenario Outline: Upload GPG key for a valid region using invalid keys (without ssh-rsa/gpg headers)
     Given the web server running properly
     When  I upload the <key_type> key for the node "qaregion2" with the content of the key "malformed"
@@ -95,7 +94,6 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
            | text             |
            | application      |
 
-  @skip @bug @CLAUDIA-5831
   Scenario Outline: Method not allowed is retrieved for unsupported HTTP operations to 'support' resource.
     Given the web server running properly
     When  I execute a "<http_verb>" request to support resource for the node "qaregion2"
@@ -104,6 +102,5 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
     Examples:
           | http_verb |
           | get       |
-          | post      |
           | put       |
           | delete    |
