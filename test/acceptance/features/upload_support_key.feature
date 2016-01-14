@@ -75,7 +75,6 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
            | text/plain |              |
            |            |              |
 
-  @skip @bug @CLAUDIA-5830
   Scenario Outline: Upload key for a valid region with invalid 'accept' header.
     Given the web server running properly
     And   the following representation headers are set:

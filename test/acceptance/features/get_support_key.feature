@@ -35,18 +35,18 @@ Feature: Retrieve Support keys from Aiakos Web Service: SSH and GPG Keys.
           | SSH      |
           | GPG      |
 
-  Scenario Outline: Get GPG key for a valid region with already uploaded keys and valid 'accept' header.
+  @skip @bug @CLAUDIA-5830
+  Scenario Outline: Get GPG key for a valid region with already uploaded keys and invalid 'accept' header.
     Given the web server running properly
     And   the accept header is set to "<accept_header>" representation
     When  I request the GPG key for the node "qaregion"
-    Then  I receive a HTTP "200" NOT ACCEPTABLE response
+    Then  I receive a HTTP "406" NOT ACCEPTABLE response
 
     Examples:
           | accept_header     |
           | text/plain        |
           |                   |
 
-  @skip @bug @CLAUDIA-5830
   Scenario Outline: Get GPG key for a valid region with already uploaded keys but invalid 'accept' header.
     Given the web server running properly
     And   the accept header is set to "<accept_header>" representation
@@ -59,7 +59,6 @@ Feature: Retrieve Support keys from Aiakos Web Service: SSH and GPG Keys.
           | application/xml   |
           | text              |
 
-  @skip @bug @CLAUDIA-5831
   Scenario Outline: Method not allowed is retrieved for unsupported HTTP operations to SSH key resource.
     Given the web server running properly
     When  I execute a "<http_verb>" request to SSH key resource for node "qaregion"
@@ -71,7 +70,6 @@ Feature: Retrieve Support keys from Aiakos Web Service: SSH and GPG Keys.
           | put       |
           | delete    |
 
-  @skip @bug @CLAUDIA-5831
   Scenario Outline: Method not allowed is retrieved for unsupported HTTP operations to GPG key resource.
     Given the web server running properly
     When  I execute a "<http_verb>" request to GPG key resource for node "qaregion"
@@ -83,7 +81,6 @@ Feature: Retrieve Support keys from Aiakos Web Service: SSH and GPG Keys.
           | put       |
           | delete    |
 
-  @skip @bug @CLAUDIA-5831
   Scenario Outline: Method not allowed is retrieved for unsupported HTTP operations to GPG key resource.
     Given the web server running properly
     When  I execute a "<http_verb>" request to support/"qaregion" resource
