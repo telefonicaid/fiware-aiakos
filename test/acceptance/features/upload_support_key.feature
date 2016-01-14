@@ -48,6 +48,7 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
           | SSH      |
           | GPG      |
 
+  @skip @bug @CLAUDIA-5830
   Scenario Outline: Upload key for a valid region with already uploaded keys and valid representations header.
     Given the web server running properly
     And   the following representation headers are set:
@@ -63,6 +64,7 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
            | text/plain |              |
            |            |              |
 
+  @skip @bug @CLAUDIA-5830
   Scenario Outline: Upload key for a valid region with invalid 'accept' header.
     Given the web server running properly
     And   the following representation headers are set:
@@ -102,3 +104,13 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
           | get       |
           | put       |
           | delete    |
+
+  @skip @bug @CLAUDIA-5869
+  Scenario Outline: Unsupported media type is retrieved for not token in Post operation
+    When  I execute a "<http_verb>" request to support resource for the node "qaregion2"
+    Then  I receive a HTTP "415" UNSUPPORTED MEDIA TYPE response
+
+    Examples:
+          | http_verb |
+          | post      |
+
