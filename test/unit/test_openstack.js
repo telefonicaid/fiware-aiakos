@@ -233,15 +233,48 @@ suite('openstack', function () {
         try {
 
             openstack.getValidateToken('1234admintoken', '1234usertoken', function() {
-                http.request.restore();
                 assert(false);
 
             });
         } catch (e) {
+             http.request.restore();
             //then
             assert(request.abort.calledOnce);
             assert(request.setTimeout.calledOnce);
             assert.equal('GET', requestStub.getCall(0).args[0].method);
+
+        }
+
+    });
+
+    test('should_return_401_with_invalid_token', function() {
+        //given
+        var request = new EventEmitter();
+        request.end = sinon.spy();
+        request.write = sinon.spy();
+        request.setTimeout = sinon.spy();
+
+        sinon.stub(http, 'request', function (options, callback) {
+            var response = new EventEmitter();
+            response.setEncoding = sinon.stub();
+            callback(response);
+
+            var json = {'error': {'message': 'Could not find token: e543f5b7ddf14310907906cdb0533c90',
+                'code': 404, 'title': 'Not Found'}};
+            response.emit('data', JSON.stringify(json));
+            response.emit('end');
+            return request;
+        });
+        //when
+        try {
+            openstack.getValidateToken('1234admintoken', '1234usertoken', function() {
+                assert(false);
+            });
+
+        }catch (ex) {
+            http.request.restore();
+            //then
+            assert.equal(ex.statusCode, 401);
 
         }
 
