@@ -37,7 +37,6 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
           | SSH      |
           | GPG      |
 
-  @skip @bug @CLAUDIA-5866
   Scenario Outline: Upload GPG key for a valid region using invalid keys (without ssh-rsa/gpg headers)
     Given the web server running properly
     When  I upload the <key_type> key for the node "qaregion2" with the content of the key "malformed"
@@ -49,23 +48,19 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
           | SSH      |
           | GPG      |
 
-  @skip @bug @CLAUDIA-5830
   Scenario Outline: Upload key for a valid region with already uploaded keys and valid representations header.
     Given the web server running properly
     And   the following representation headers are set:
            | accept     | content-type   |
            | <accept>   | <content-type> |
     When  I upload the SSH key for the node "qaregion2"
-    Then  I receive a HTTP "201" NOT ACCEPTABLE response
+    Then  I receive a HTTP "201" OK response
 
     Examples:
            | accept     | content-type |
            | text/plain | text/plain   |
-           |            | text/plain   |
-           | text/plain |              |
-           |            |              |
 
-  @skip @bug @CLAUDIA-5830
+
   Scenario Outline: Upload key for a valid region with invalid 'accept' header.
     Given the web server running properly
     And   the following representation headers are set:
@@ -79,6 +74,7 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
            | lalala           |
            | application/json |
            | text             |
+           |              |
 
 
   Scenario Outline: Upload key for a valid region with invalid invalid 'content-type' header.
@@ -94,8 +90,8 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
            | lalala           |
            | text             |
            | application      |
+           |       |
 
-  @skip @bug @CLAUDIA-5831
   Scenario Outline: Method not allowed is retrieved for unsupported HTTP operations to 'support' resource.
     Given the web server running properly
     When  I execute a "<http_verb>" request to support resource for the node "qaregion2"
@@ -104,6 +100,14 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
     Examples:
           | http_verb |
           | get       |
-          | post      |
           | put       |
           | delete    |
+
+  Scenario Outline: Unsupported media type is retrieved for not token in Post operation
+    When  I execute a "<http_verb>" request to support resource for the node "qaregion2"
+    Then  I receive a HTTP "401" NO AUTHENTICATED response
+
+    Examples:
+          | http_verb |
+          | post      |
+
