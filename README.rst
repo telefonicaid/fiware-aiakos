@@ -36,21 +36,38 @@ Top_
 API Overview
 ============
 
-To show the help of service, you can use the operation::
+To upload new/modified a gpg key to the server. You should send a POST like this:
 
-    GET /    (text/html)
+::
 
-To query the keys, you should use the next operations::
+    curl --request POST \
+        --url http://aiakoshost/v1/support \
+        --header 'accept: text/plain' \
+        --header 'content-type: text/plain' \
+        --header 'x-auth-token: 201dd9a13de844db905cb4f617cbc17d' \
+        --data '-----BEGIN PGP PUBLIC KEY BLOCK-----\nVersion: GnuPG v1\n\nmQENBFWnVCYBCADPeDMbTOkCM4MPbUMvtbAtGbUDnH3AHyZCEZZuyjeExATfT0Au\n-----END PGP PUBLIC KEY BLOCK-----'
 
-    GET /v1/support/<region_name>/sshkey  (text/plain)
-    
-    GET /v1/support/<region_name>/gpgkey  (text/plain)
+The result of this operation is a text/plain response with the generated key:
 
-To upload the keys, you should use the next operation, adding payload with the key::
+::
 
-    POST /v1/support/ (text/plain)
+    -----BEGIN PGP PUBLIC KEY BLOCK-----
+    Version: GnuPG v1
 
-    (Use X-Auth-Token in header)
+    mQENBFWnVCYBCADPeDMbTOkCM4MPbUMvtbAtGbUDnH3AHyZCEZZuyjeExATfT0Au
+    -----END PGP PUBLIC KEY BLOCK-----
+
+
+Please have a look at the `API Reference Documentation`_ section below for more description and operations.
+
+API Reference Documentation
+---------------------------
+
+- `FIWARE Aiakos v1 (Apiary)`__
+
+__ `FIWARE Aiakos - Apiary`_
+
+
 Top_
 
 
@@ -132,5 +149,6 @@ Top_
 .. _FIWARE: http://www.fiware.org/
 .. _FIWARE Lab: https://www.fiware.org/lab/
 .. _`github issues`: https://github.com/telefonicaid/fiware-aiakos/issues
+.. _FIWARE Aiakos - Apiary: https://jsapi.apiary.io/apis/fiwareaiakos/reference.html
 .. _`Generating support keys`: doc/README.rst
 .. _`Dockerfile`: Dockerfile
