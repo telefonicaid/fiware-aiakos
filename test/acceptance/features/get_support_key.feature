@@ -11,14 +11,12 @@ Feature: Retrieve Support keys from Aiakos Web Service: SSH and GPG Keys.
     GET /support/gpgkey  (text/plain)
 
 
-  @bug @CLAUDIA-5829
   Scenario: Get SSH key for a valid region with already uploaded keys.
     Given the web server running properly
     When  I request the SSH key for the node "qaregion"
     Then  I receive a HTTP "200" OK response
     And   the response contains the expected SSH key with the content for "qaregion"
 
-  @bug @CLAUDIA-5829
   Scenario: Get GPG key for a valid region with already uploaded keys.
     Given the web server running properly
     When  I request the GPG key for the node "qaregion"
@@ -35,7 +33,6 @@ Feature: Retrieve Support keys from Aiakos Web Service: SSH and GPG Keys.
           | SSH      |
           | GPG      |
 
-  @skip @bug @CLAUDIA-5830
   Scenario Outline: Get GPG key for a valid region with already uploaded keys and invalid 'accept' header.
     Given the web server running properly
     And   the accept header is set to "<accept_header>" representation
@@ -44,7 +41,7 @@ Feature: Retrieve Support keys from Aiakos Web Service: SSH and GPG Keys.
 
     Examples:
           | accept_header     |
-          | text/plain        |
+          | application/json  |
           |                   |
 
   Scenario Outline: Get GPG key for a valid region with already uploaded keys but invalid 'accept' header.

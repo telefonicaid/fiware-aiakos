@@ -60,20 +60,6 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
            | accept     | content-type |
            | text/plain | text/plain   |
 
-  @skip @bug @CLAUDIA-5830
-  Scenario Outline: Upload key for a valid region with already uploaded keys and NOT valid representations header.
-    Given the web server running properly
-    And   the following representation headers are set:
-           | accept     | content-type   |
-           | <accept>   | <content-type> |
-    When  I upload the SSH key for the node "qaregion2"
-    Then  I receive a HTTP "406" NO ACEPTABLE response
-
-    Examples:
-           | accept     | content-type |
-           |            | text/plain   |
-           | text/plain |              |
-           |            |              |
 
   Scenario Outline: Upload key for a valid region with invalid 'accept' header.
     Given the web server running properly
@@ -88,6 +74,7 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
            | lalala           |
            | application/json |
            | text             |
+           |              |
 
 
   Scenario Outline: Upload key for a valid region with invalid invalid 'content-type' header.
@@ -103,6 +90,7 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
            | lalala           |
            | text             |
            | application      |
+           |       |
 
   Scenario Outline: Method not allowed is retrieved for unsupported HTTP operations to 'support' resource.
     Given the web server running properly
