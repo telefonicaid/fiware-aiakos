@@ -33,6 +33,33 @@ found in the `Generating support keys`_.
 Top_
 
 
+API Overview
+============
+
+To upload new/modified a gpg key to the server. You should send a POST like this:
+
+::
+
+    curl --request POST \
+        --url http://aiakoshost/v1/support \
+        --header 'accept: text/plain' \
+        --header 'content-type: text/plain' \
+        --header 'x-auth-token: 201dd9a13de844db905cb4f617cbc17d' \
+        --data '-----BEGIN PGP PUBLIC KEY BLOCK-----\nVersion: GnuPG v1\n\nmQENBFWnVCYBCADPeDMbTOkCM4MPbUMvtbAtGbUDnH3AHyZCEZZuyjeExATfT0Au\n-----END PGP PUBLIC KEY BLOCK-----'
+
+The result of this operation is a text/plain response with the generated key:
+
+::
+
+    -----BEGIN PGP PUBLIC KEY BLOCK-----
+    Version: GnuPG v1
+
+    mQENBFWnVCYBCADPeDMbTOkCM4MPbUMvtbAtGbUDnH3AHyZCEZZuyjeExATfT0Au
+    -----END PGP PUBLIC KEY BLOCK-----
+
+
+Please have a look at the `API Reference Documentation`_ section below for more description and operations.
+
 API Reference Documentation
 ---------------------------
 
