@@ -1,0 +1,98 @@
+FORMAT: 1A
+TITLE: FIWARE-PaaS API v1 Specification
+DATE: 15 January 2016
+VERSION: v1.0
+APIARY_PROJECT: fiware-aiakos
+
+# FIWARE-Aiakos
+
+<!--
+Copyright 2015 Telefónica I+D
+All Rights Reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may
+not use this file except in compliance with the License. You may obtain
+a copy of the License at
+        http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+Server with public API to manage ssh/gpg public keys for the support user of each FIWARE Lab node.
+
+## Editors
+
+  + Jesús Pérez González, Telefónica I+D
+
+## Copyright
+
+Copyright (c) 2016 Telefónica Investigación y Desarrollo.
+
+This specification is licensed under the
+[FIWARE Open Specification License (implicit patents license)](http://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/FI-WARE_Open_Specification_Legal_Notice_(implicit_patents_license)).
+
+## Status
+
+Final version aligned with FIWARE Release 5.1.4.
+
+# Group aiakos v1
+
+## Query key [/v1/support/{region_name}/{key}]
+
+Get the key for region
+
++ Parameters
+    + region_name (required, string, `region1`) ... region name.
+    + key (sshkey | gpgkey)
+
+### Get key [GET]
+
++ Request (application/json)
+    + Headers
+    
+            Accept: text/plain
+
++ Response 200 (text/plain)
+
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+        Version: GnuPG v1
+
+        mQENBFWnVCYBCADPeDMbTOkCM4MPbUMvtbAtGbUDnH3AHyZCEZZuyjeExATfT0Au
+        -----END PGP PUBLIC KEY BLOCK-----
+
+
+
++ Response 200 (text/plain)
+
+        ssh-rsa fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com
+
+## Add key [/v1/support]
+
+Upload the keys with ssh and gpg format. 
+
+### Post key [POST]
+
++ Request (text/plain)
+    + Headers
+    
+            X-Auth-Token: token-id
+            Accept: text/plain
+
++ Request (text/plain)
+
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+        Version: GnuPG v1
+
+        mQENBFWnVCYBCADPeDMbTOkCM4MPbUMvtbAtGbUDnH3AHyZCEZZuyjeExATfT0Au
+        -----END PGP PUBLIC KEY BLOCK-----
+
++ Response 201 (text/plain)
+
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+        Version: GnuPG v1
+
+        mQENBFWnVCYBCADPeDMbTOkCM4MPbUMvtbAtGbUDnH3AHyZCEZZuyjeExATfT0Au
+        -----END PGP PUBLIC KEY BLOCK-----
+
