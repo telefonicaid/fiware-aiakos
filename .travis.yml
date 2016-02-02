@@ -10,8 +10,9 @@ env:
 install:
   - npm install
   - npm install -g grunt-cli
-  - npm install coveralls --save 
+  - npm install coveralls --save
+  - grunt test
+  - grunt lint
 
 after_success:
-  - grunt lint
   - grunt coverage-report && cat report/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
