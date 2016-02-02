@@ -22,7 +22,7 @@ var assert = require('assert'),
     openstack = require('../../lib/routes/openstack'),
     fs = require('fs');
 
-var basePath = './test/unit/'
+var basePath = './test/unit/';
 
 /* jshint multistr: true */
 suite('v1', function () {
