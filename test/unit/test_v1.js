@@ -328,5 +328,57 @@ suite('v1', function () {
 
     });
 
+    test('should_return_a_valid_ssh_key_for_valid_region_ended_with_2', function() {
+        var req = sinon.stub(),
+            res = sinon.stub();
+
+        req.params = sinon.stub();
+        req.params.region = 'region12';
+        req.params.key = 'sshkey';
+        res.write = sinon.spy();
+        res.setHeader = sinon.spy();
+        res.type = sinon.spy();
+        res.end = sinon.spy();
+
+        v1.getKey(req, res);
+
+        assert(res.write.calledOnce);
+        assert(res.setHeader.calledOnce);
+        assert(res.type.calledOnce);
+        assert(res.end.calledOnce);
+
+    });
+
+    test('should_save_key_to_disk_when_post_a_key_for_region_ended_with_2', function() {
+        //given
+        var body = 'ssh-rsa fBIqA5CALsR/gF6ITbjnSSc5pYTDZ/T0JwIb5Z admin@domain.com';
+        var res = sinon.stub();
+
+        var fsStub = sinon.stub(fs, 'writeFile', function (path, content, callbackWriteFile) {
+            console.log('fake fs.writeFile');
+            assert(path === basePath + 'region1.sshkey');
+            callbackWriteFile();
+            fs.writeFile.restore();
+        });
+        res.status = sinon.stub();
+        res.write = sinon.stub();
+        res.type = sinon.stub();
+        res.setHeader = sinon.stub();
+        res.end = sinon.spy();
+
+        //when
+        v1.saveKeyToFile('region12', body, res);
+
+        //then
+        assert(fsStub.calledOnce);
+        assert(res.status.withArgs(201).calledOnce);
+        assert(res.setHeader.withArgs().calledOnce);
+        assert(res.type.calledOnce);
+        assert(res.write.withArgs(body, 'utf8').calledOnce);
+        assert(res.end.calledOnce);
+
+
+    });
+
 
 });
