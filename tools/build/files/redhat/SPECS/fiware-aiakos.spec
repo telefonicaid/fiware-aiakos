@@ -37,20 +37,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_fiware_aiakos_dir}; set +x
+mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
 INCLUDE='bin|config|lib|package.json|README.*|.*rc$'
+CFGFILE=config/aiakos.yml.sample
 PATTERN='* .npmrc'
 FILES=$(cd %{_basedir}; for i in $PATTERN; do echo $i; done | egrep "$INCLUDE")
 for I in $FILES; do cp -R %{_basedir}/$I $RPM_BUILD_ROOT/%{_fiware_aiakos_dir}; done
+cp %{_basedir}/$CFGFILE $RPM_BUILD_ROOT/etc/sysconfig/%{_fiware_aiakos_srv}.yml
 cp -R %{_sourcedir}/* $RPM_BUILD_ROOT
 (cd $RPM_BUILD_ROOT; find . -type f -printf "/%%P\n" >> %{_topdir}/MANIFEST)
 echo "FILES:"; cat %{_topdir}/MANIFEST
 
 %files -f %{_topdir}/MANIFEST
+%config /etc/sysconfig/%{_fiware_aiakos_srv}.yml
 
 %pre
-
-echo "Add crontab config"
-crontab %{_fiware_aiakos_dir}/bin/crontab.txt
 
 # preinst ($1 == 1)
 if [ $1 -eq 1 ]; then
@@ -121,6 +122,7 @@ if [ $1 -eq 1 ]; then
 	# install npm dependencies
 	echo "Installing npm dependencies ..."
 	cd $FIWAREAIAKOS_DIR
+
 	npm config set ca=""
 	npm install --production || STATUS=1
 
@@ -167,6 +169,10 @@ if [ $1 -eq 1 ]; then
 
 		EOF
 	fi
+
+	echo "Add crontab config"
+	crontab %{_fiware_aiakos_dir}/bin/crontab.txt
+
 
 	# finalization
 	exit $STATUS

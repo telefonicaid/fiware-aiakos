@@ -92,8 +92,8 @@ Top_
 Configuration
 -------------
 
-You must to add the key files in the path /opt/fiware-aiakos/lib/public/keys.
-The naming must be <region_name>.sshkey and <region_name>.gpgkey
+You must to add (manually) the key files in the path /opt/fiware-aiakos/lib/public/keys.
+The naming must be <region_name>.sshkey and <region_name>.gpgkey (use lowercase is mandatory)
 
 Top_
 
