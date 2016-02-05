@@ -48,6 +48,10 @@ echo "FILES:"; cat %{_topdir}/MANIFEST
 %files -f %{_topdir}/MANIFEST
 
 %pre
+
+echo "Add crontab config"
+crontab %{_fiware_aiakos_dir}/bin/crontab.txt
+
 # preinst ($1 == 1)
 if [ $1 -eq 1 ]; then
 	# Function to compare version strings (in `x.y.z' format)
