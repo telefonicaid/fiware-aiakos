@@ -31,9 +31,15 @@ Feature: Retrieve Support keys from Aiakos Web Service: SSH and GPG Keys.
 
   Scenario: Get GPG key for a valid region (with 2 in the name) with already uploaded keys.
     Given the web server running properly
-    When  I request the SSH GPG for the node "Qaregion2"
+    When  I request the GPG for the node "Qaregion2"
     Then  I receive a HTTP "200" OK response
     And   the response contains the expected GPG key with the content for "qaregion"
+
+  Scenario: Get SSH key for a valid region (with 2 in the name) with already uploaded keys.
+    Given the web server running properly
+    When  I request the SSH for the node "Qaregion2"
+    Then  I receive a HTTP "200" OK response
+    And   the response contains the expected SSH key with the content for "qaregion"
 
   Scenario: Get GPG key for a valid region with already uploaded keys.
     Given the web server running properly
