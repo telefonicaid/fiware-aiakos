@@ -95,10 +95,10 @@ the use of a configuration file is preferable:
 - ``/etc/sysconfig/aiakos.yml`` (when running system service)
 - ``{installation_path}/config/aiakos.yml`` (when running manually)
 
-Such configuration file is self-documented, so there you will find a description
-of every configuration option.
+Such configuration file is self-documented, so you will find a description of
+every configuration option there.
 
-After install and configure the service, and in order to start the service, run::
+After installing and configuring the service, you can execute the service with the following command::
 
     $ sudo service fiware-aiakos start
     
@@ -116,8 +116,8 @@ Top_
 SSH and PGP keys
 ----------------
 
-The key files for aikaos are in the path /opt/fiware-aiakos/lib/public/keys.
-The naming must be <region_name>.sshkey and <region_name>.gpgkey (use lowercase is mandatory)
+The key files for aiakos are stored in the folder /opt/fiware-aiakos/lib/public/keys.
+The naming must be <region_name>.sshkey and <region_name>.gpgkey (lowercase is mandatory)
 
 Top_
 
