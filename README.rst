@@ -75,7 +75,7 @@ Installation
 ============
 
 Using FIWARE package repository (recommended)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------
 
 Refer to the documentation of your Linux distribution to set up the URL of the
 repository where FIWARE packages are available (and update cache, if needed).
