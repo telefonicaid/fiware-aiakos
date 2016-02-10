@@ -1,0 +1,2 @@
+#Schedule the backup keys job
+0 1 * * * /opt/fiware/fiware-aiakos/bin/backup.sh
