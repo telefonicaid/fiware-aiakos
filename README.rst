@@ -71,10 +71,34 @@ __ `FIWARE Aiakos - Apiary`_
 Top_
 
 
-Running
-=======
+Installation
+============
 
-After install rpm/deb package, and in order to start the service, run::
+Using FIWARE package repository (recommended)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Refer to the documentation of your Linux distribution to set up the URL of the
+repository where FIWARE packages are available (and update cache, if needed).
+Currently, ``http://repositories.testbed.fiware.org/repo/rpm/x86_64``
+
+Then, use the package tool to install ``fiware-aiakos``::
+
+    $ sudo yum install fiware-aiakos
+
+
+Configuration file
+------------------
+
+Although some options can be specified from the command line, as a general rule
+the use of a configuration file is preferable:
+
+- ``/etc/sysconfig/aiakos.yml`` (when running system service)
+- ``{installation_path}/config/aiakos.yml`` (when running manually)
+
+Such configuration file is self-documented, so there you will find a description
+of every configuration option.
+
+After install and configure the service, and in order to start the service, run::
 
     $ sudo service fiware-aiakos start
     
@@ -89,10 +113,10 @@ In order to test the service is running, run::
 
 Top_
 
-Configuration
--------------
+SSH and PGP keys
+----------------
 
-You must to add (manually) the key files in the path /opt/fiware-aiakos/lib/public/keys.
+The key files for aikaos are in the path /opt/fiware-aiakos/lib/public/keys.
 The naming must be <region_name>.sshkey and <region_name>.gpgkey (use lowercase is mandatory)
 
 Top_
