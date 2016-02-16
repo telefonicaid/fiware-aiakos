@@ -96,7 +96,7 @@ class AiakosSupportApiClient(RestClient):
         """
         with open(key_file_path, 'r') as key_file:
             response = super(AiakosSupportApiClient, self).post(AIAKOS_SUPPORT_BASE,
-                                                                key_file.read(), self.headers, region_name=region_name)
+                                                                key_file.read(), self.headers)
 
         return response.text, response
 
@@ -108,6 +108,6 @@ class AiakosSupportApiClient(RestClient):
         """
         with open(key_file_path, 'r') as key_file:
             response = super(AiakosSupportApiClient, self).post(AIAKOS_SUPPORT_BASE,
-                                                                key_file.read(), self.headers, region_name=region_name)
+                                                                key_file.read(), self.headers)
 
         return response.text, response
