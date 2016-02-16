@@ -71,14 +71,14 @@ def before_all(context):
                     host_ssh_key=config[PROPERTIES_CONFIG_AIAKOS][PROPERTIES_CONFIG_SERVICE_HOST_PKEY])
 
 
-def before_scenario(context, scenario):
+def before_feature(context, feature):
     """
-    HOOK: To be executed before each Scenario.
+    HOOK: To be executed before each Feature.
         - Init context.created_keyfiles list
         - Set default headers (Aiakos API Client)
     """
 
-    __logger__.info("Starting execution of scenario")
+    __logger__.info("Starting execution of feature")
     __logger__.info("##############################")
     __logger__.info("##############################")
 
@@ -89,15 +89,15 @@ def before_scenario(context, scenario):
                                                         accept='text/plain')
 
 
-def after_scenario(context, scenario):
+def after_feature(context, feature):
     """
-    HOOK: To be executed after each Scenario.
+    HOOK: To be executed after each Feature.
         - Remove generated key files.
     """
 
     __logger__.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
     __logger__.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-    __logger__.info("Tearing down execution of scenario")
+    __logger__.info("Tearing down execution of feature")
 
     aiakos_keyfile_path = \
         configuration_manager.config[PROPERTIES_CONFIG_AIAKOS][PROPERTIES_CONFIG_AIAKOS_KEYFILES_PATH]

@@ -27,10 +27,10 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
   Scenario Outline: Upload GPG key for a valid region without keys already uploaded.
     Given the web server running properly
     And   already uploaded <key_type> key for the node "qaregion2"
-    When  I upload the <key_type> key for the node "qaregion2" with the content of the key "qaregion2b"
+    When  I upload the <key_type> key for the node "qaregion2" with the content of the key "qaregion"
     Then  I receive a HTTP "201" OK response
-    And   the response contains the expected <key_type> key with the content for "qaregion2b"
-    And   the file with the <key_type> key is stored in the server with the content of the key "qaregion2b"
+    And   the response contains the expected <key_type> key with the content for "qaregion"
+    And   the file with the <key_type> key is stored in the server with the content of the key "qaregion"
 
     Examples:
           | key_type |
@@ -41,7 +41,6 @@ Feature: Upload Support keys to Aiakos Web Service: SSH and GPG Keys.
     Given the web server running properly
     When  I upload the <key_type> key for the node "qaregion2" with the content of the key "malformed"
     Then  I receive a HTTP "400" BAD REQUEST response
-    And   the file with the <key_type> key is not stored in the server
 
     Examples:
           | key_type |
