@@ -88,28 +88,26 @@ class AiakosSupportApiClient(RestClient):
                                                            self.headers, region_name=region_name)
         return response.text, response
 
-    def upload_sshkey(self, region_name, key_file_path):
+    def upload_sshkey(self, key_file_path):
         """
         Upload a new SSH for the given region.
-        :param region_name (string): Region name.
         :param key_file_path (string): Absolute path of the local file with the key.
         :return (string, Requests): A tuple with the raw body (key) and the response of the Requests lib.
         """
         with open(key_file_path, 'r') as key_file:
             response = super(AiakosSupportApiClient, self).post(AIAKOS_SUPPORT_BASE,
-                                                                key_file.read(), self.headers, region_name=region_name)
+                                                                key_file.read(), self.headers)
 
         return response.text, response
 
-    def upload_gpgkey(self, region_name, key_file_path):
+    def upload_gpgkey(self, key_file_path):
         """
         Upload a new GPG for the given region.
-        :param region_name (string): Region name.
         :param key_file_path (string): Absolute path of the local file with the key.
         :return (string, Requests): A tuple with the raw body (key) and the response of the Requests lib.
         """
         with open(key_file_path, 'r') as key_file:
             response = super(AiakosSupportApiClient, self).post(AIAKOS_SUPPORT_BASE,
-                                                                key_file.read(), self.headers, region_name=region_name)
+                                                                key_file.read(), self.headers)
 
         return response.text, response

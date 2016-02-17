@@ -53,12 +53,19 @@ class AiakosApiClient:
         self.port = port
         self.base_resource = base_resource
 
-        token = auth.init_auth()
-        self.headers = {"X-Auth-Token": token}
+        self.headers = {}
 
         set_representation_headers(self.headers,
                                    content_type=HTTP_REPRESENTATION_HEADER_TEXT,
                                    accept=HTTP_REPRESENTATION_HEADER_TEXT)
+
+    def add_token(self):
+        """
+        Add a token to header.
+        :return: None
+        """
+        token = auth.init_auth()
+        self.headers.update({"X-Auth-Token": token})
 
     def update_representation_headers(self, content_type, accept):
         """

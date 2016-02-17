@@ -43,35 +43,41 @@ def _get_keyfile_name_helper(key_type, region_name):
     :param region_name (string): Region name.
     :return (string): Filename considering the key. e.i: 'Spain2.sshkey'
     """
+    file_name = region_name.lower()
+
     if key_type == "SSH":
-        return SSHKEY_FILE_PATTERN.format(region_name)
+        file_name = SSHKEY_FILE_PATTERN.format(file_name)
     else:
-        return GPGKEY_FILE_PATTERN.format(region_name)
+        file_name = GPGKEY_FILE_PATTERN.format(file_name)
 
+    if region_name.endswith("2"):
+        return file_name.replace("2", "")
+    else:
+        return file_name
 
-def _upload_key_helper(context, key_type, keyfile_name, region_name):
+def _upload_key_helper(context, key_type, keyfile_name):
     """
     Step HELPER. Upload the kew using Aiakos API Client.
     :param context: Behave context.
     :param key_type (string): Type of the key to be uploaded
     :param keyfile_name (string): File with the key to be uploaded. e.i. 'Spain2.sshkey'
-    :param region_name (string): Region name.
     :return: None
     """
     config = configuration_manager.config
+    context.aiakos_client.add_token()
     if key_type == "SSH":
         ssh_key_filepath = os.path.join(RESOURCES_PATH, keyfile_name)
         context.response_body, context.response = \
-            context.aiakos_client.support_api_resource().upload_sshkey(region_name, ssh_key_filepath)
+            context.aiakos_client.support_api_resource().upload_sshkey(ssh_key_filepath)
     else:
         ssh_key_filepath = os.path.join(RESOURCES_PATH, keyfile_name)
         context.response_body, context.response = \
-            context.aiakos_client.support_api_resource().upload_gpgkey(region_name, ssh_key_filepath)
+            context.aiakos_client.support_api_resource().upload_gpgkey(ssh_key_filepath)
 
     context.created_keyfiles_list.append(keyfile_name)
 
 
-def _key_is_stored_in_the_server_helper(context, keyfile_name, keyfile_conent):
+def _key_is_stored_in_the_server_helper(context, keyfile_name, keyfile_content):
     """
     Step HELPER. Check if the given keyfile is stored in the server. Performe assertions.
     :param context: Context
@@ -89,7 +95,7 @@ def _key_is_stored_in_the_server_helper(context, keyfile_name, keyfile_conent):
                 "Remote file '{}/{}' does not exist in remote host".format(aiakos_keyfile_path, keyfile_name))
 
     # Assert: Content of the remote file is the expected one
-    ssh_key_filepath = os.path.join(RESOURCES_PATH, keyfile_conent)
+    ssh_key_filepath = os.path.join(RESOURCES_PATH, keyfile_content)
     with open(ssh_key_filepath, 'r') as file_content:
         result = context.remote_executor.content_in_file(aiakos_keyfile_path, keyfile_name, file_content.read())
         assert_that(result, is_(True),
@@ -101,8 +107,22 @@ def server_running_properly(context):
     """
     Step: Prepare server for running and check status.
     """
-    # Nothing to do so far
     pass
+
+
+@step(u'the web server running properly with a key for "(?P<region_name>\w*)"')
+def server_running_properly_with_a_key(context, region_name):
+    """
+    Step: Prepare server for running with a valid key preloaded.
+    """
+
+    keyfile_name = _get_keyfile_name_helper('SSH', region_name)
+    if keyfile_name not in context.created_keyfiles_list:
+        _upload_key_helper(context, 'SSH', keyfile_name)
+
+    keyfile_name = _get_keyfile_name_helper('GPG', region_name)
+    if keyfile_name not in context.created_keyfiles_list:
+        _upload_key_helper(context, 'GPG', keyfile_name)
 
 
 @step(u'I request the (?P<key_type>SSH|GPG) key for the node "(?P<region_name>\w*)"')
@@ -172,11 +192,8 @@ def upload_key(context, key_type, region_name):
     """
     context.region_name = region_name
 
-    # TODO FIST PART OF THE US. To be deleted when completed.
-    context.aiakos_client.headers.update({"region": region_name})
-
     keyfile_name = _get_keyfile_name_helper(key_type, region_name)
-    _upload_key_helper(context, key_type, keyfile_name, region_name)
+    _upload_key_helper(context, key_type, keyfile_name)
 
 
 @step(u'I upload the (?P<key_type>SSH|GPG) key for the node "(?P<region_name>\w*)" '
@@ -187,11 +204,8 @@ def upload_key_file(context, key_type, region_name, key_node):
     """
     context.region_name = region_name
 
-    # TODO FIST PART OF THE US. To be deleted when completed.
-    context.aiakos_client.headers.update({"region": region_name})
-
     keyfile_name = _get_keyfile_name_helper(key_type, key_node)
-    _upload_key_helper(context, key_type, keyfile_name, region_name)
+    _upload_key_helper(context, key_type, keyfile_name)
 
 
 @step(u'I execute a "(?P<http_verb>get|post|put|delete)" request to support resource '
@@ -200,10 +214,6 @@ def execute_request_http_verb_support(context, http_verb, region_name):
     """
     Step: Upload a SSH/GPG Key using a raw client methods to force 'invalid' conditions.
     """
-    context.region_name = region_name
-
-    # TODO FIST PART OF THE US. To be deleted when completed.
-    context.aiakos_client.headers.update({"region": region_name})
 
     context.response_body, context.response = \
         context.aiakos_client.support_api_resource().raw_request_support(
