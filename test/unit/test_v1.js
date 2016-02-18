@@ -246,7 +246,7 @@ suite('v1', function () {
             res = sinon.stub();
 
         res.status = sinon.stub();
-        res.end = sinon.spy();
+        res.send = sinon.stub();
         req.is = sinon.stub();
         req.is.withArgs('text').returns(false);
 
@@ -255,7 +255,7 @@ suite('v1', function () {
 
         //then
         assert(res.status.withArgs(415).calledOnce);
-        assert(res.end.calledOnce);
+        assert(res.send.calledOnce);
 
     });
 
@@ -265,14 +265,16 @@ suite('v1', function () {
             res = sinon.stub();
 
         res.status = sinon.stub();
-        res.render = sinon.stub();
+        res.setHeader = sinon.stub();
+        res.send = sinon.stub();
 
         //when
         v1.methodNotAllowed(req, res);
 
         //then
         assert(res.status.withArgs(405).calledOnce);
-        assert(res.render.calledOnce);
+        assert(res.setHeader.withArgs('content-type', 'plain/text').calledOnce);
+        assert(res.send.calledOnce);
 
     });
 
