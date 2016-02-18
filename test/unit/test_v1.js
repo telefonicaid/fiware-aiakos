@@ -38,14 +38,14 @@ suite('v1', function () {
 
     test('should_return_error_with_invalid_region', function () {
 
-        var result = v1.validateRegion('invalidName');
+        var result = v1.validateRegion('invalidName','sshkey');
         assert(result === false);
 
     });
 
     test('should_return_true_with_valid_region', function () {
 
-        var result = v1.validateRegion('region1');
+        var result = v1.validateRegion('region1', 'sshkey');
 
         assert(result === true);
 
