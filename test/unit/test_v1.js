@@ -38,7 +38,7 @@ suite('v1', function () {
 
     test('should_return_error_with_invalid_region', function () {
 
-        var result = v1.validateRegion('invalidName','sshkey');
+        var result = v1.validateRegion('invalidName', 'sshkey');
         assert(result === false);
 
     });
