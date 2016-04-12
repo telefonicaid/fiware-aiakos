@@ -16,4 +16,5 @@ RUN npm install -g grunt-cli
 RUN npm install
 RUN ./node_modules/.bin/grunt test
 RUN sed -i 's/production/development/' Gruntfile.js
+COPY sonar-project.properties sonar-project.properties
 CMD ./node_modules/.bin/grunt test; grunt lint-report test-report coverage-report
