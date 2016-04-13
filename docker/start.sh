@@ -1,9 +1,9 @@
-if test -r /etc/redhat-release; then
-    yum -y -q install rpm-build redhat-rpm-config
-else
-   apt-get -y -q install dpkg-dev debhelper devscripts
-fi
-#  Generate package
-tools/build/package.sh
+sed -i -e "s/{ADM_TENANT_NAME}/${ADM_TENANT_NAME}/" /etc/sysconfig/aiakos.yml
+sed -i -e "s/{ADM_PASSWORD}/${ADM_PASSWORD}/" /etc/sysconfig/aiakos.yml
+sed -i -e "s/{KEYSTONE_IP}/${KEYSTONE_IP}/" /etc/sysconfig/aiakos.yml
+sed -i -e "s/{ADM_TENANT_ID}/${ADM_TENANT_ID}/" /etc/sysconfig/aiakos.yml
+sed -i -e "s/{ADM_USERNAME}/${ADM_USERNAME}/" /etc/sysconfig/aiakos.yml
 export RPM_FILE=`find  -name "*.rpm"`
-uploadPkg.py --os-username=$OS_USERNAME_VALUE --os-password=$OS_PASSWORD_VALUE --os-tenant-name=$OS_TENANT_NAME_VALUE $RPM_FILE
+rpm -i $RPM_FILE
+service fiware-aiakos start
+tail -f /var/log/fiware-aiakos/fiware-aiakos.log
