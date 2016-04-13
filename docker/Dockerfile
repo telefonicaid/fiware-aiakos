@@ -16,6 +16,7 @@ RUN npm install
 RUN ./node_modules/.bin/grunt test
 RUN ./tools/build/package.sh
 COPY aiakos.yml /etc/sysconfig/aiakos.yml
+RUN mkdir /var/log/fiware-aiakos
 EXPOSE 3000
 COPY start.sh start.sh
 CMD ./start.sh
