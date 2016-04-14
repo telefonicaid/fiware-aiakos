@@ -17,5 +17,7 @@ RUN ./tools/build/package.sh
 COPY aiakos.yml /etc/sysconfig/aiakos.yml
 RUN mkdir /var/log/fiware-aiakos
 EXPOSE 3000
+VOLUME /sys/fs/cgroup /run /tmp
+ENV container=docke
 COPY start.sh start.sh
 CMD ./start.sh
