@@ -23,12 +23,11 @@ openstack role add --user  admin-${Region1}2 --project  admin-${Region1} admin
 openstack project show admin-${Region1} > project
 export TENANT_ID=`grep "| id" project | awk 'NR==1{print $4}'`
 
-sed -i -e "s/{TENANT_ID}/${TENANT_ID}/" conf/settings.json
+sed -i -e "s/{ADM_TENANT_ID}/${TENANT_ID}/" conf/settings.json
 sed -i -e "s/{ADM_USERNAME}/admin-${Region1}/" conf/settings.json
 sed -i -e "s/{ADM_TENANT_NAME}/admin-${Region1}/" conf/settings.json
 sed -i -e "s/{ADM_PASSWORD}/admin-${Region1}/" conf/settings.json
 
-sleep 12000
 host="fiwareaikos"
 ip="`gethostip -d "$host"`"
 echo $ip

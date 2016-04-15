@@ -2,25 +2,25 @@
 # Aiakos application section (mandatory)
 #----------------------------------------------------------------------------
 app:
-port: 3000 # App listen port
+  port: 3000 # App listen port
 #----------------------------------------------------------------------------
 # Logging options section (mandatory)
 #----------------------------------------------------------------------------
 logging:
-level: DEBUG # Logging level
+  level: DEBUG # Logging level
 #-----------------------------------------------------------------------------
 # openstack admin (mandatory)
 #-----------------------------------------------------------------------------
 openstack:
-host: '{KEYSTONE_IP}'
-port: '5000'
-path: '/v3/auth/tokens'
-username: '{ADM_USERNAME}' # admin openstack user
-password: '{ADM_PASSWORD}' # admin openstack password
-content-type: 'application/json'
-accept: 'application/json'
+  host: '{KEYSTONE_IP}'
+  port: '5000'
+  path: '/v3/auth/tokens'
+  username: '{ADM_USERNAME}' # admin openstack user
+  password: '{ADM_PASSWORD}' # admin openstack password
+  content-type: 'application/json'
+  accept: 'application/json'
 #-----------------------------------------------------------------------------
 # openstack regions administrators (mandatory)
 #-----------------------------------------------------------------------------
 regions:
-names: [] # array of {'username': 'regionName'}
+  names: [] # array of {'username': 'regionName'}

@@ -14,7 +14,7 @@ WORKDIR /opt/fiware-aiakos
 RUN npm install
 RUN ./node_modules/.bin/grunt test
 RUN ./tools/build/package.sh
-COPY aiakos.yml /etc/sysconfig/aiakos.yml
+COPY aiakos.yml aiakos.yml
 RUN mkdir /var/log/fiware-aiakos
 EXPOSE 3000
 VOLUME /sys/fs/cgroup /run /tmp
