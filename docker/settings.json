@@ -1,0 +1,22 @@
+{
+    "environment": {
+        "name": "development"
+    },
+    "aiakos": {
+        "protocol": "http",
+        "host": "fiwareaikos",
+        "port": "3000",
+        "resource": "/v1",
+        "host_user": "",
+        "host_password": "",
+        "host_private_key_location": "",
+        "aiakos_keyfiles_path": "/opt/fiware/fiware-aiakos/lib/public/keys",
+        "os_username": "{ADM_USERNAME}",
+        "os_tenant_name": "{ADM_TENANT_NAME}",
+        "os_password": "{ADM_PASSWORD}",
+        "os_tenant_id": "{ADM_TENANT_ID}",
+        "os_domain_name": "default",
+        "os_auth_url": "http://{KEYSTONE_IP}:35357/v2.0/"
+    }
+}
+
