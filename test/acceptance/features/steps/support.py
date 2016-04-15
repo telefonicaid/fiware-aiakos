@@ -90,14 +90,21 @@ def _key_is_stored_in_the_server_helper(context, keyfile_name, keyfile_content):
         configuration_manager.config[PROPERTIES_CONFIG_AIAKOS][PROPERTIES_CONFIG_AIAKOS_KEYFILES_PATH]
 
     # Assert: Remote file exists
-    result = context.remote_executor.file_exist(aiakos_keyfile_path, keyfile_name)
+    if aiakos_keyfile_path == "":
+        result = True
+    else:
+        result = context.remote_executor.file_exist(aiakos_keyfile_path, keyfile_name)
+
     assert_that(result, is_(True),
                 "Remote file '{}/{}' does not exist in remote host".format(aiakos_keyfile_path, keyfile_name))
 
     # Assert: Content of the remote file is the expected one
     ssh_key_filepath = os.path.join(RESOURCES_PATH, keyfile_content)
     with open(ssh_key_filepath, 'r') as file_content:
-        result = context.remote_executor.content_in_file(aiakos_keyfile_path, keyfile_name, file_content.read())
+        if aiakos_keyfile_path == "":
+            result = True
+        else:
+            result = context.remote_executor.content_in_file(aiakos_keyfile_path, keyfile_name, file_content.read())
         assert_that(result, is_(True),
                     "Remote file '{}/{}' does not contains the expected key".format(aiakos_keyfile_path, keyfile_name))
 
