@@ -4,18 +4,19 @@
     },
     "aiakos": {
         "protocol": "http",
-        "host": "",
-        "port": "",
+        "host": "fiwareaiakos",
+        "port": "3000",
         "resource": "/v1",
-        "host_user": "root",
+        "host_user": "",
         "host_password": "",
-        "host_private_key_location": "./resources/my_rsa_key",
-        "aiakos_keyfiles_path": "/opt/fiware/fiware-aiakos/lib/public/keys",
-        "os_username": "",
-        "os_tenant_name": "admin",
-        "os_password": "",
-        "os_tenant_id": "",
+        "host_private_key_location": ".",
+        "aiakos_keyfiles_path": "",
+        "os_username": "admin-qaregion",
+        "os_tenant_name": "admin-qaregion",
+        "os_password": "admin-qaregion",
+        "os_tenant_id": "6af9ecbcca974ade903be5184cb0b6ea",
         "os_domain_name": "default",
-        "os_auth_url": "http://cloud.lab.fi-ware.org:4731/v2.0"
+        "os_auth_url": "http://130.206.118.223:35357/v2.0"
     }
 }
+
