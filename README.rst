@@ -3,7 +3,7 @@
 FIWARE Aiakos
 *************
 
-|Build Status| |Coverage Status|
+|License Badge| |Build Status| |Coverage Status|
 
 .. contents:: :local:
 
@@ -166,6 +166,9 @@ Top_
 .. |Coverage Status| image:: https://img.shields.io/coveralls/telefonicaid/fiware-aiakos/develop.svg
    :target: https://coveralls.io/r/telefonicaid/fiware-aiakos
    :alt: Coverage Status
+.. |License Badge| image:: https://img.shields.io/badge/license-Apache_2.0-blue.svg
+   :target: LICENSE
+   :alt: Apache 2.0
 
 
 .. REFERENCES
