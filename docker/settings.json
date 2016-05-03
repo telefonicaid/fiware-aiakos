@@ -10,7 +10,7 @@
         "host_user": "",
         "host_password": "",
         "host_private_key_location": "",
-        "aiakos_keyfiles_path": "/opt/fiware/fiware-aiakos/lib/public/keys",
+        "aiakos_keyfiles_path": "",
         "os_username": "{ADM_USERNAME}",
         "os_tenant_name": "{ADM_TENANT_NAME}",
         "os_password": "{ADM_PASSWORD}",
