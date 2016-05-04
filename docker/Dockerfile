@@ -4,12 +4,14 @@
 
 FROM centos:7
 ADD fiware.repo /etc/yum.repos.d/fiware.repo
+RUN curl --silent --location https://rpm.nodesource.com/setup | bash -
 RUN yum -y install git nodejs rpm-build initscripts crontabs fiware-aiakos
-RUN mkdir /opt/fiware-aiakos; mkdir /var/log/fiware-aiakos
-WORKDIR /opt/fiware-aiakos
+WORKDIR /opt/fiware/fiware-aiakos
+RUN npm install
 COPY aiakos.yml /etc/sysconfig/fiware-aiakos.yml
 EXPOSE 3000
-ENV container=docker
-VOLUME VOLUME /run /tmp 
+VOLUME /sys/fs/cgroup /run /tmp
+ENV container=docke
 COPY start.sh start.sh
-CMD /usr/sbin/init; ./start.sh
+CMD ./start.sh
+
