@@ -121,8 +121,7 @@ def server_running_properly(context):
 def server_running_properly_with_a_key(context, region_name):
     """
     Step: Prepare server for running with a valid key preloaded.
-    """
-
+zMCGfpTLTAMF2L2c
     keyfile_name = _get_keyfile_name_helper('SSH', region_name)
     if keyfile_name not in context.created_keyfiles_list:
         _upload_key_helper(context, 'SSH', keyfile_name)
