@@ -8,6 +8,8 @@ fiwareaikos:
    - ADM_TENANT_NAME
    - ADM_TENANT_ID
    - KEYSTONE_IP
+   - OS_USER_DOMAIN_NAME
+   - OS_PROJECT_DOMAIN_NAME
 fiware-aiakos-aceptance:
   image: fiware-aiakos-acceptance
   links:
@@ -17,5 +19,7 @@ fiware-aiakos-aceptance:
    - ADM_USERNAME
    - ADM_TENANT_NAME
    - ADM_TENANT_ID
+   - OS_USER_DOMAIN_NAME
+   - OS_PROJECT_DOMAIN_NAME
    - KEYSTONE_IP
    - Region1
