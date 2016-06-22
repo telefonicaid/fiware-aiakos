@@ -6,7 +6,6 @@ There are several options to use Aiakos very easily using docker. These are (in 
 - _"Have everything automatically done for me"_. See Section **1. The Fastest Way** (recommended).
 - _"Check the unit tests associated to the component"_. See Seciton **2. Run Unit Test of Aiakos**.
 - _"Check the acceptance tests are running properly"_ or _"I want to check that my Aiakos instance run properly"_ . See Section **3. Run Acceptance tests**.
-- _"Create the proper rpm file for distributing the component"_ : See Section **4. Build a docker image to generate rpm file**.
 
 You do not need to do all of them, just use the first one if you want to have a fully operational Aiakos instance and maybe third one to check if your Aiakos instance run properly.
 
@@ -68,10 +67,35 @@ Keep in mind that if you use these commands you get access to the tags and speci
 ----
 ## 3. Run Acceptance tests
 
-If you want to know more about images and the building process you can find it in [Docker's documentation](https://docs.docker.com/userguide/dockerimages/).
+This method will launch a container to run the E2E tests of the Aiakos component, previously you should launch or configure a FIWARE Lab access. You have to define the following environment variables:
 
-----
-## 4. Build a docker image to generate rpm file
+    export BRANCH=develop
+    export KEYSTONE_IP=<IP of the keystone instance>
+    export ADM_TENANT_ID=<admin tenant id in the OpenStack environment>
+    export USER_TENANT_ID=<admin tenant id in the OpenStack environment>
+    export ADM_TENANT_NAME=<admin tenant name>
+    export USER_TENANT_NAME=<user tenant name>
+    export ADM_USERNAME=<admin username>
+    export USER_USERNAME=<username>
+    export ADM_PASSWORD=<admin password>
+    export USER_PASSWORD=<user password>
+    export Region1=qaregion
+    export OS_USER_DOMAIN_NAME=<OpenStack user domain name>
+    export OS_PROJECT_DOMAIN_NAME=<OpenStack project domain name>	
+
+Take it, You should move to the UnitTests folder `./AcceptanceTests`. Just create a new docker image executing `docker build -t fiware-aiakos-acceptance .`. To see that the image is created run `docker images` and you see something like this:
+
+    REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+    fiware-aiakos-acceptance   latest              eadbe0b2e186        About an hour ago   579.3 MB
+    fiware-aiakos              latest              a46ffad45e60        4 hours ago         480.8 MB
+    centos                     latest              904d6c400333        2 weeks ago         196.8 MB
+    ...
+
+Now is time to execute the container. This time, we take advantage of the docker compose. Just execute `docker-compose up` to launch the architecture. You can take a look to the log generated executing `docker-compose logs`. If you want to get the result of the acceptance tests, just execute `docker cp docker_fiware-aiakos-aceptance_1:/opt/fiware-aiakos/test/acceptance/testreport .`
+
+Please keep in mind that if you do not change the name of the image it will automatically create a new one for unit tests and change the previous one to tag none.
+
+> TIP: you can launch a FIWARE Lab testbed container to execute the Aiakos E2E test. Just follow the indications in [FIWARE Testbed Deploy](https://hub.docker.com/r/fiware/testbed-deploy/). It will launch a virtual machine in which a reproduction of the FIWARE Lab is installed.
 
 ----
 ## 5. Other info

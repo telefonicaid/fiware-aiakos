@@ -1,3 +1,7 @@
+# How to execute:
+# $ docker build -t fiware-aiakos-rpm .
+# $ docker run --name fiware-aiakos-rpm fiware-aiakos-rpm
+
 FROM centos
 RUN  yum install -y epel-release; yum install -y git python-pip  python-dev rpm-build redhat-rpm-config
 RUN pip install http://repositories.lab.fiware.org/repo/files/fiware-repositories-uploadPkg-1.1.0.tar.gz 

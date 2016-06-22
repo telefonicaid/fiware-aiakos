@@ -26,7 +26,7 @@ sed -i -e "s/{ADM_USERNAME}/admin-${Region1}/" conf/settings.json
 sed -i -e "s/{ADM_TENANT_NAME}/admin-${Region1}/" conf/settings.json
 sed -i -e "s/{ADM_PASSWORD}/admin-${Region1}/" conf/settings.json
 
-host="fiwareaikos"
+host="fiware-aiakos"
 ip="`gethostip -d "$host"`"
 echo $ip
 while ! echo exit | nc $ip 3000; do sleep 10; done

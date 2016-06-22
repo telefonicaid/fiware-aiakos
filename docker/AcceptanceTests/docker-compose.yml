@@ -1,4 +1,4 @@
-fiwareaikos:
+fiware-aiakos:
   image: fiware-aiakos
   ports:
    - 3000:3000
@@ -10,10 +10,10 @@ fiwareaikos:
    - KEYSTONE_IP
    - OS_USER_DOMAIN_NAME
    - OS_PROJECT_DOMAIN_NAME
-fiware-aiakos-aceptance:
+fiware-aiakos-acceptance:
   image: fiware-aiakos-acceptance
   links:
-  -  fiware-aikos
+  -  fiware-aiakos
   environment:
    - ADM_PASSWORD
    - ADM_USERNAME
