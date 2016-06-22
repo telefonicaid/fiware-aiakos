@@ -15,84 +15,58 @@ You do need to have docker in your machine. See the [documentation](https://docs
 ----
 ## 1. The Fastest Way
 
-Docker allows you to deploy an Aiakos container in a few minutes. This method requires that you have installed docker or can deploy container into the FIWARE Lab (see previos detaile about it).
+Docker allows you to deploy an Aiakos container in a few minutes. This method requires that you have installed docker or can deploy container into the FIWARE Lab (see previous details about it).
 
 Consider this method if you want to try Aiakos and do not want to bother about losing data.
 
 Follow these steps:
 
 1. Create a directory on your system on which to work (for example, `~/fiware`).
-2. Create a new file called `docker-compose.yml` inside your directory with the following contents:
-	
-		mongo:
-		  image: mongo:3.2
-		  command: --nojournal
-		orion:
-		  image: fiware/orion
-		  links:
-		    - mongo
-		  ports:
-		    - "1026:1026"
-		  command: -dbhost mongo
+2. Using the command-line and within the directory you created type: `docker build -t fiware-aiakos -f Dockerfile .`.
 
-3. Using the command-line and within the directory you created type: `sudo docker-compose up`.
+After a few seconds you should have your Aiakos image created. Just run the command `docker images` and you see the following response:
 
-> Regarding --nojournal it is not recommened for production, but it speeds up mongo container start up and avoids some race conditions problems if Orion container is faster and doesn't find the DB up and ready.
+    REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+    fiware-aiakos       latest              bd78d006c2ea        About a minute ago   480.8 MB
+    centos              7                   904d6c400333        2 weeks ago          196.8 MB
+    ...
 
-After a few seconds you should have your Context Broker running and listening on port `1026`.
+To execute the Aiakos image, execute the command `docker run -p -p 3000:3000 -d fiware-aiakos`. It will launch the Aiakos service listening on port `3000`.
 
 Check that everything works with
 
-	curl localhost:1026/version
+	curl localhost:3000
 
-What you have done with this method is download images for [Orion Context Broker](https://hub.docker.com/r/fiware/orion/) and [MongoDB](https://hub.docker.com/_/mongo/) from the public repository of images called [Docker Hub](https://hub.docker.com/). Then you have created two containers based on both images.
+What you have done with this method is the creation of the [Aiakos](https://hub.docker.com/r/fiware/aiakos/) image from the public repository of images called [Docker Hub](https://hub.docker.com/).
 
-If you want to stop the scenario you have to press Control+C on the terminal where docker-compose is running. Note that you will lose any data that was being used in Orion using this method.
+If you want to stop the scenario you have to execute `docker ps` and you see something like this:
+
+    CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+    b8e1de41deb5        fiware-aiakos       "/bin/sh -c ./start.s"   6 minutes ago       Up 6 minutes        0.0.0.0:3000->3000/tcp   fervent_davinci
+
+
+Take the Container ID and execute `docker stop b8e1de41deb5` or `docker kill b8e1de41deb5`. Note that you will lose any data that was being used in Aiakos using this method.
 
 ----
 ## 2. Run Unit Test of Aiakos
 
-This method will launch a container running Orion Context Broker, but it is up to you to provide a MongoDB instance. This MongoDB instance may be running on localhost, other host on your network, another container, or anywhere you have network access to.
+This method will launch a container running Aiakos, and execute the unit tests associated to the component. You should move to the UnitTests folder `./UnitTests`. Just create a new docker image executind `docker build -t fiware-aiakos-unittests -f Dockerfile .`. Please keep in mind that if you do not change the name of the image it will automatically create a new one for unit tests and change the previous one to tag none.
 
-> TIP: If you are trying these methods or run them more than once and come across an error saying that the container already exists you can delete it with `docker rm orion1`. If you have to stop it first do `docker stop orion1`.
+To see that the image is created run `docker images` and you see something like this:
 
-Keep in mind that if you use these commands you get access to the tags and specific versions of Orion. For example, you may use `fiware/orion:0.22` instead of `fiware/orion` in the following commands if you need that particular version. If you do not specify a version you are pulling from `latest` by default.
+    REPOSITORY                TAG                 IMAGE ID            CREATED             SIZE
+    fiware-aiakos-unittests   latest              103464a8ede0        30 seconds ago      551.3 MB
+    centos                    latest              904d6c400333        2 weeks ago         196.8 MB
 
-### 2A. MongoDB is on localhost
+To execute the unit tests of this component, just execute `docker run --name fiware-aiakos-unittests fiware-aiakos-unittests`. Finally you can extract the information of the executed tests just executing `docker cp fiware-aiakos-unittests:/opt/fiware-aiakos/report .`
 
-To do this run this command
 
-	sudo docker run -d --name orion1 -p 1026:1026 fiware/orion
+> TIP: If you are trying these methods or run them more than once and come across an error saying that the container already exists you can delete it with `docker rm fiware-aiakos-unittests`. If you have to stop it first do `docker stop fiware-aiakos-unittests`.
 
-Check that everything works with
-
-	curl localhost:1026/version
+Keep in mind that if you use these commands you get access to the tags and specific versions of Aiakos. If you do not specify a version you are pulling from `latest` by default.
 
 ----
 ## 3. Run Acceptance tests
-
-Building an image gives more control on what is happening within the Orion Context Broker container. Only use this method if you are familiar with building docker images or really need to change how this image is built. For most purposes you probably don't need to build an image, only deploy a container based on one already built for you (which is covered in sections 1 and 2).
-
-Steps:
-
-1. Download [Orion's source code](https://github.com/telefonicaid/fiware-orion/) from Github (`git clone https://github.com/telefonicaid/fiware-orion/`)
-2. `cd fiware-orion/docker`
-3. Modify the Dockerfile to your liking
-4. Run Orion...
-	* Using an automated scenario with docker-compose and building your new image: `sudo docker-compose up`. You may also modify the provided `docker-compose.yml` file if you need so.
-	* Manually, running MongoDB on another container: 
-        	1. `sudo docker run --name mongodb -d mongo:3.2`
-		2. `sudo docker build -t orion .`
-		3. `sudo docker run -d --name orion1 --link mongodb:mongodb -p 1026:1026 orion -dbhost mongodb`.
-	* Manually, specifying where to find your MongoDB host:
-		1. `sudo docker build -t orion .`
-		2. `sudo docker run -d --name orion1 -p 1026:1026 orion -dbhost <MongoDB Host>`.
-
-Check that everything works with
-
-	curl localhost:1026/version
-
-The parameter `-t orion` in the `docker build` command gives the image a name. This name could be anything, or even include an organization like `-t org/fiware-orion`. This name is later used to run the container based on the image.
 
 If you want to know more about images and the building process you can find it in [Docker's documentation](https://docs.docker.com/userguide/dockerimages/).
 
@@ -100,16 +74,14 @@ If you want to know more about images and the building process you can find it i
 ## 4. Build a docker image to generate rpm file
 
 ----
-## 5. Other info (finish)
+## 5. Other info
 
 Things to keep in mind while working with docker containers and Aiakos.
 
-### 5.1 Data persistence (pending)
+### 5.1 Data persistence
 Everything you do with Aiakos when dockerized is non-persistent. *You will lose all your data* if you turn off the Aiakos container. This will happen with either method presented in this README.
 
-If you want to prevent this from happening take a look at [this link](https://registry.hub.docker.com/_/mongo/) in section *Where to Store Data* of the MongoDB docker documentation. In it you will find instructions and ideas on how to make your MongoDB data persistent.
-
-### 5.2 Using `sudo` (finish)
+### 5.2 Using `sudo`
 
 If you do not want to have to use `sudo` follow [these instructions](http://askubuntu.com/questions/477551/how-can-i-use-docker-without-sudo).
    

@@ -13,7 +13,7 @@ fiwareaikos:
 fiware-aiakos-aceptance:
   image: fiware-aiakos-acceptance
   links:
-  -  fiwareaikos
+  -  fiware-aikos
   environment:
    - ADM_PASSWORD
    - ADM_USERNAME
