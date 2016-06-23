@@ -1,4 +1,10 @@
 # How to execute:
+# - It is needed to configure some environment variables:
+#   $ export BRANCH=develop
+# 	$ export OS_USERNAME_VALUE=<OpenStack username>
+# 	$ export OS_PASSWORD_VALUE=<OpenStack password>
+# 	$ export OS_TENANT_NAME_VALUE=<OpenStack tenant name>
+#
 # $ docker build -t fiware-aiakos-rpm .
 # $ docker run --name fiware-aiakos-rpm fiware-aiakos-rpm
 

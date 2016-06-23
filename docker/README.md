@@ -31,13 +31,13 @@ After a few seconds you should have your Aiakos image created. Just run the comm
     centos              7                   904d6c400333        2 weeks ago          196.8 MB
     ...
 
-To execute the Aiakos image, execute the command `docker run -p -p 3000:3000 -d fiware-aiakos`. It will launch the Aiakos service listening on port `3000`.
+To execute the Aiakos image, execute the command `docker run -p 3000:3000 -d fiware-aiakos`. It will launch the Aiakos service listening on port `3000`.
 
 Check that everything works with
 
-	curl localhost:3000
+	curl <IP address of a machine>:3000
 
-What you have done with this method is the creation of the [Aiakos](https://hub.docker.com/r/fiware/aiakos/) image from the public repository of images called [Docker Hub](https://hub.docker.com/).
+You can obtain the IP address of the machine just executing `docker-machine ip`. What you have done with this method is the creation of the [Aiakos](https://hub.docker.com/r/fiware/aiakos/) image from the public repository of images called [Docker Hub](https://hub.docker.com/).
 
 If you want to stop the scenario you have to execute `docker ps` and you see something like this:
 
@@ -96,7 +96,7 @@ Now is time to execute the container. This time, we take advantage of the docker
 
 Please keep in mind that if you do not change the name of the image it will automatically create a new one for unit tests and change the previous one to tag none.
 
-> TIP: you can launch a FIWARE Lab testbed container to execute the Aiakos E2E test. Just follow the indications in [FIWARE Testbed Deploy](https://hub.docker.com/r/fiware/testbed-deploy/). It will launch a virtual machine in which a reproduction of the FIWARE Lab is installed.
+> TIP: you can launch a FIWARE Lab testbed container to execute the Aiakos E2E test. Just follow the indications in [FIWARE Testbed Deploy](https://hub.docker.com/r/fiware/testbed-deploy/). It will launch a virtual machine in which a reproduction of the FIWARE Lab is installed. Keep in mind that in that case Region1 have to be configured with the value qaregion.
 
 ----
 ## 4. Other info
