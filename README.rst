@@ -148,6 +148,8 @@ You can use this `Dockerfile`_ to launch/execute the Docker image and container:
     $ docker build -t fiwareaiakos .
     $ docker run -p 3000:3000 -d fiwareaiakos
 
+If you want to get more information about the use of docker see `How to use Aiakos with Docker <docker/README.md>`_.
+
 Top_
 
 
@@ -178,4 +180,4 @@ Top_
 .. _`github issues`: https://github.com/telefonicaid/fiware-aiakos/issues
 .. _FIWARE Aiakos - Apiary: https://jsapi.apiary.io/apis/fiwareaiakos/reference.html
 .. _`Generating support keys`: doc/README.rst
-.. _`Dockerfile`: Dockerfile
+.. _`Dockerfile`: `<docker/Dockerfile>`
