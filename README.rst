@@ -180,4 +180,4 @@ Top_
 .. _`github issues`: https://github.com/telefonicaid/fiware-aiakos/issues
 .. _FIWARE Aiakos - Apiary: https://jsapi.apiary.io/apis/fiwareaiakos/reference.html
 .. _`Generating support keys`: doc/README.rst
-.. _`Dockerfile`: `<docker/Dockerfile>`
+.. _`Dockerfile`: docker/Dockerfile
