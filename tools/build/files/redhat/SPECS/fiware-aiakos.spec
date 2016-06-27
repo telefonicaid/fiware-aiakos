@@ -195,5 +195,17 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
-* Tue Dec 01 2015 Telefónica I+D <opensource@tid.es> 1.0.0-1
-- TODO
+* Tue Dec 01 2015 Telefónica I+D <opensource@tid.es> 1.0.0
+- API operations: get/post
+- Authentication with token
+
+* Wed Mar 02 2016 Telefónica I+D <opensource@tid.es> 1.2.0
+- Improved the error management layer
+- Fix bug about capital letters
+- Added Dockerfile
+
+* Mon Jun 27 2016 Telefónica I+D <opensource@tid.es> 1.3.0
+- Create dockerfiles for the Aiakos component
+- Improve unit tests
+- Update the Documentation
+- Configure hub.docker image
