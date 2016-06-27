@@ -1,6 +1,6 @@
 # How to execute: 
-# $ docker build -t fiwareaiakos .
-# $ docker run -p 3000:3000 -d fiwareaiakos
+# $ docker build -t fiware-aiakos .
+# $ docker run -p 3000:3000 -d fiware-aiakos
 
 FROM centos:7
 ADD fiware.repo /etc/yum.repos.d/fiware.repo

@@ -1,6 +1,6 @@
 # How to execute: 
-# $ docker build -t fiwareaiakos .
-# $ docker run -p 3000:3000 -d fiwareaiakos
+# $ docker build -t fiware-aiakos-unittests .
+# $ docker run --name fiware-aiakos-unittests fiware-aiakos-unittests
 
 FROM centos
 RUN curl --silent --location https://rpm.nodesource.com/setup | bash
