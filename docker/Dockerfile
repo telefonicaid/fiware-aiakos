@@ -4,7 +4,7 @@
 
 FROM centos:7
 ADD fiware.repo /etc/yum.repos.d/fiware.repo
-RUN curl --silent --location https://rpm.nodesource.com/setup | bash -
+RUN curl --silent --location https://rpm.nodesource.com/setup_4.x | bash -
 RUN yum -y install git nodejs rpm-build initscripts crontabs fiware-aiakos
 WORKDIR /opt/fiware/fiware-aiakos
 RUN npm install
