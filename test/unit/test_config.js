@@ -53,7 +53,7 @@ suite('config', function () {
 
         //Then
         assert.deepEqual(['WARN',
-            'Configuration file: ENOENT, no such file or directory \'' + invalidFilename + '\''], result);
+            'Configuration file: ENOENT: no such file or directory, open \'' + invalidFilename + '\''], result);
 
     });
 
