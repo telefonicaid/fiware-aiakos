@@ -159,7 +159,7 @@ suite('v1', function () {
         v1.postKey(req, res);
 
         //then
-        assert(req.header.calledOnce);
+        assert(req.header.calledTwice);
         assert(openstackStub.calledOnce);
 
 
