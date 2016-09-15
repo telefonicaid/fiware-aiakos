@@ -29,5 +29,5 @@ sed -i -e "s/{ADM_PASSWORD}/admin-${Region1}/" conf/settings.json
 host="fiware-aiakos"
 ip="`gethostip -d "$host"`"
 echo $ip
-while ! echo exit | nc $ip 3000; do sleep 10; done
+while ! echo exit | nc $ip 3001; do sleep 10; done
 behave features/ --tags ~@skip --junit --junit-directory testreport
