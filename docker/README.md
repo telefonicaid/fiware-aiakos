@@ -31,18 +31,18 @@ After a few seconds you should have your Aiakos image created. Just run the comm
     centos              7                   904d6c400333        2 weeks ago          196.8 MB
     ...
 
-To execute the Aiakos image, execute the command `docker run -p 3000:3000 -d fiware-aiakos`. It will launch the Aiakos service listening on port `3000`.
+To execute the Aiakos image, execute the command `docker run -p 3001:3001 -d fiware-aiakos`. It will launch the Aiakos service listening on port `3001`.
 
 Check that everything works with
 
-	curl <IP address of a machine>:3000
+	curl <IP address of a machine>:3001
 
 You can obtain the IP address of the machine just executing `docker-machine ip`. What you have done with this method is the creation of the [Aiakos](https://hub.docker.com/r/fiware/aiakos/) image from the public repository of images called [Docker Hub](https://hub.docker.com/).
 
 If you want to stop the scenario you have to execute `docker ps` and you see something like this:
 
     CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
-    b8e1de41deb5        fiware-aiakos       "/bin/sh -c ./start.s"   6 minutes ago       Up 6 minutes        0.0.0.0:3000->3000/tcp   fervent_davinci
+    b8e1de41deb5        fiware-aiakos       "/bin/sh -c ./start.s"   6 minutes ago       Up 6 minutes        0.0.0.0:3001->3001/tcp   fervent_davinci
 
 
 Take the Container ID and execute `docker stop b8e1de41deb5` or `docker kill b8e1de41deb5`. Note that you will lose any data that was being used in Aiakos using this method.

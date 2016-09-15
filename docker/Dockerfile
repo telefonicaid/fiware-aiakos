@@ -9,7 +9,7 @@ RUN yum -y install git nodejs rpm-build initscripts crontabs fiware-aiakos
 WORKDIR /opt/fiware/fiware-aiakos
 RUN npm install
 COPY aiakos.yml /etc/sysconfig/fiware-aiakos.yml
-EXPOSE 3000
+EXPOSE 3001
 VOLUME /sys/fs/cgroup /run /tmp
 ENV container=docke
 COPY start.sh start.sh

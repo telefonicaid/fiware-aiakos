@@ -5,7 +5,7 @@
     "aiakos": {
         "protocol": "http",
         "host": "fiware-aiakos",
-        "port": "3000",
+        "port": "3001",
         "resource": "/v1",
         "host_user": "",
         "host_password": "",
