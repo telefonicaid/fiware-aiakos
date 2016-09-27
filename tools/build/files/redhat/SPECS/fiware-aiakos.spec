@@ -195,8 +195,15 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Mon Sep 26 2016 Telefónica I+D <opensource@tid.es> 1.5.0
+- change backup path
+- upgrade to node.js 4.5
+- improve documentation README and for readthedocs
+- fix API error with authentication
+- add contribution policy
+- improve docker support
 
-* Mon Jun 27 2016 Telefónica I+D <opensource@tid.es> 1.3.0
+* Wed Jun 27 2016 Telefónica I+D <opensource@tid.es> 1.3.0
 - Create dockerfiles for the Aiakos component
 - Improve unit tests
 - Update the Documentation
