@@ -379,8 +379,41 @@ suite('v1', function () {
         assert(res.write.withArgs(body, 'utf8').calledOnce);
         assert(res.end.calledOnce);
 
+    });
+
+    test('should_return_three_values_with_info_about_a_file', function() {
+        
+        var result = v1.getRegionInfo('region1.sshkey');
+
+        assert(result[0] === 'region1');
+        assert(result[1] === 'sshkey');
+        assert(result[2] !== undefined);
 
     });
+
+
+    test('should_return_a_list_of_regions_with_json', function() {
+        var req = sinon.stub(),
+            res = sinon.stub();
+
+        res.type = sinon.spy();
+        res.end = sinon.spy();
+
+        //when
+        v1.regionsList(req, res);
+
+         //then
+        assert(res.type.calledOnce);
+        assert(res.type.withArgs('application/json'));
+        assert(res.end.calledOnce);
+        assert(JSON.parse(res.end.args[0]) !==  undefined);
+        assert(JSON.parse(res.end.args[0]).region1 !==  undefined);
+        assert(JSON.parse(res.end.args[0]).region1.gpgkey !==  undefined);
+        assert(JSON.parse(res.end.args[0]).region1.sshkey !==  undefined);
+
+     });
+
+
 
 
 });

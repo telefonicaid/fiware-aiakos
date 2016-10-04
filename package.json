@@ -22,7 +22,8 @@
     "logops": "^1.0.0-alpha.3",
     "optimist": "^0.6.1",
     "serve-favicon": "~2.3.0",
-    "util": "^0.10.3"
+    "util": "^0.10.3",
+    "hashtable": "^2.0.2"
   },
   "devDependencies": {
     "mocha": "^2.2.4",
