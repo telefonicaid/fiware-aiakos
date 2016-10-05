@@ -407,9 +407,9 @@ suite('v1', function () {
         assert(res.type.withArgs('application/json'));
         assert(res.end.calledOnce);
         assert(JSON.parse(res.end.args[0]) !==  undefined);
-        assert(JSON.parse(res.end.args[0]).region1 !==  undefined);
-        assert(JSON.parse(res.end.args[0]).region1.gpgkey !==  undefined);
-        assert(JSON.parse(res.end.args[0]).region1.sshkey !==  undefined);
+        assert(JSON.parse(res.end.args[0])[0].regionName ===  'region1');
+        assert(JSON.parse(res.end.args[0])[0].gpgkey !==  undefined);
+        assert(JSON.parse(res.end.args[0])[0].sshkey !==  undefined);
 
      });
 
