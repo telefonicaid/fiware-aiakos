@@ -19,7 +19,7 @@ addons:
 install:
   - sudo unlink /usr/bin/g++
   - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
-  - npm install
+  - npm install -d
   - npm install -g grunt-cli
   - grunt test
   - grunt lint
