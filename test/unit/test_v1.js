@@ -414,6 +414,48 @@ suite('v1', function () {
      });
 
 
+    test('should_return_a_list_of_regions_using_query_parameter', function() {
+        var req = sinon.stub(),
+            res = sinon.stub();
+
+        res.type = sinon.spy();
+        res.end = sinon.spy();
+        req.query = sinon.spy();
+        req.query.regionName="region1";
+
+        //when
+        v1.regionsList(req, res);
+
+         //then
+        assert(res.type.calledOnce);
+        assert(res.type.withArgs('application/json'));
+        assert(res.end.calledOnce);
+        assert(JSON.parse(res.end.args[0]) !==  undefined);
+        assert(JSON.parse(res.end.args[0])[0].regionName ===  'region1');
+        assert(JSON.parse(res.end.args[0])[0].gpgkey !==  undefined);
+        assert(JSON.parse(res.end.args[0])[0].sshkey !==  undefined);
+
+     });
+
+    test('should_return_a_empty_list_of_regions_using_query_parameter', function() {
+        var req = sinon.stub(),
+            res = sinon.stub();
+
+        res.type = sinon.spy();
+        res.end = sinon.spy();
+        req.query = sinon.spy();
+        req.query.regionName="region2";
+
+        //when
+        v1.regionsList(req, res);
+
+         //then
+        assert(res.type.calledOnce);
+        assert(res.type.withArgs('application/json'));
+        assert(res.end.calledOnce);
+        assert(JSON.parse(res.end.args[0]).length ===  0);
+
+     });
 
 
 });
