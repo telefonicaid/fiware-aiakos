@@ -35,32 +35,38 @@ This specification is licensed under the
 
 ## Status
 
-Final version aligned with FIWARE Release 5.2.1.
+Final version aligned with FIWARE Release 5.3.5.
 
 # Group aiakos v1
 
 ## Regions [/v1/support]
 
-Get the region list with keys
-
 ### Get list [GET]
+
+Get the region list with keys.
+
+Response in JSON:
+* Succesful operation uses 200 Ok
+* Body: a list of JSON with region name and date of last update of the availables keys.
 
 + Request (application/json)
     + Headers
 
-            Accept: text/plain
+            Accept: application/json
 
-+ Response 200 (text/plain)
++ Response 200 (application/json)
 
-        {
-          "example2": {
-            "gpgkey": "2016-02-01T13:09:24.000Z"
-        },
-          "example": {
-            "gpgkey": "2016-02-01T13:09:24.000Z",
-            "sshkey": "2016-02-01T13:09:24.000Z"
-          }
-        }
+        [
+            {
+                "gpgkey": "2016-02-01T13:09:24.000Z",
+                "regionName": "trento"
+            },
+            {
+                "gpgkey": "2016-02-01T13:09:24.000Z",
+                "sshkey": "2016-02-01T13:09:24.000Z",
+                "regionName": "spain"
+            }
+        ]
 
 
 ## Query key [/v1/support/{region_name}/{key}]

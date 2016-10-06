@@ -17,13 +17,14 @@
     "express-domain-middleware": "^0.1.0",
     "forever": "^0.15.1",
     "fs": "0.0.2",
+    "hashmap": "^2.0.6",
+    "hashtable": "^2.0.2",
     "jade": "~1.11.0",
     "js-yaml": "^3.4.6",
     "logops": "^1.0.0-alpha.3",
     "optimist": "^0.6.1",
     "serve-favicon": "~2.3.0",
-    "util": "^0.10.3",
-    "hashtable": "^2.0.2"
+    "util": "^0.10.3"
   },
   "devDependencies": {
     "mocha": "^2.2.4",
