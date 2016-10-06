@@ -20,9 +20,8 @@ install:
   - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
   - npm install
   - npm install -g grunt-cli
-  - npm install coveralls --save
   - grunt test
   - grunt lint
 
 after_success:
-  - grunt coverage-report && cat report/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - grunt coverage-report && cat report/coverage/lcov.info | grunt coveralls
