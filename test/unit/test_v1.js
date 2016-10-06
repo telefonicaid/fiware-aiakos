@@ -421,7 +421,7 @@ suite('v1', function () {
         res.type = sinon.spy();
         res.end = sinon.spy();
         req.query = sinon.spy();
-        req.query.regionName="region1";
+        req.query.regionName = 'region1';
 
         //when
         v1.regionsList(req, res);
@@ -444,7 +444,7 @@ suite('v1', function () {
         res.type = sinon.spy();
         res.end = sinon.spy();
         req.query = sinon.spy();
-        req.query.regionName="region2";
+        req.query.regionName = 'region2';
 
         //when
         v1.regionsList(req, res);
