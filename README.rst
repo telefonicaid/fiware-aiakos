@@ -408,8 +408,8 @@ Top_
 .. |Build Status| image:: https://travis-ci.org/telefonicaid/fiware-aiakos.svg?branch=develop
    :target: https://travis-ci.org/telefonicaid/fiware-aiakos
    :alt: Build Status
-.. |Coverage Status| image:: https://img.shields.io/coveralls/telefonicaid/fiware-aiakos/develop.svg
-   :target: https://coveralls.io/r/telefonicaid/fiware-aiakos
+.. |Coverage Status| image:: https://coveralls.io/repos/github/telefonicaid/fiware-aiakos/badge.svg?branch=develop
+   :target: https://coveralls.io/github/telefonicaid/fiware-aiakos?branch=develop
    :alt: Coverage Status
 .. |License Badge| image:: https://img.shields.io/badge/license-Apache_2.0-blue.svg
    :target: LICENSE
