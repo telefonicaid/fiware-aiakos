@@ -259,7 +259,7 @@ module.exports = function (grunt) {
               options: {
                 // Any options for just this target
               }
-            },
+            }
         }
     });
 
