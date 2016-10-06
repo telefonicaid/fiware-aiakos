@@ -242,6 +242,24 @@ module.exports = function (grunt) {
                 },
                 src: ['<%= jshint.gruntfile.src %>', '<%= jshint.lib.src %>', '<%= jshint.test.src %>']
             }
+        },
+
+        coveralls: {
+            // Options relevant to all targets
+            options: {
+              // When true, grunt-coveralls will only print a warning rather than
+              // an error, to prevent CI builds from failing unnecessarily (e.g. if
+              // coveralls.io is down). Optional, defaults to false.
+              force: false
+            },
+
+            your_target: {
+              // LCOV coverage file (can be string, glob or array)
+              src: 'report/coverage/lcov.info',
+              options: {
+                // Any options for just this target
+              }
+            }
         }
     });
 
@@ -256,6 +274,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-gjslint');
     grunt.loadNpmTasks('grunt-dox');
     grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-coveralls');
 
     grunt.registerTask('test', 'Run tests',
         ['mochaTest:unit']);
