@@ -4,26 +4,26 @@ node_js:
   - "4.5.0"
 env:
   global:
-    - CXX=g++-4.8
-    - COVERALLS_SERVICE_NAME=travis-ci
+  - CXX=g++-4.8
+  - COVERALLS_SERVICE_NAME=travis-ci
     # COVERALLS_REPO_TOKEN (encrypted)
-    - secure: "RrzGnJHZ2E2kvtOhzFBmbmESFfZZa+U79EOtBOtj1uTmfxqglPQr1lfi52E3HlIqDznjE4u+JMh1aZ4b9ma/geonB05XF7eInOSAP966jgiLzpSofjAxbPlMV8fMPtU8wZQvMHW3JeA20jjVGfBtiYyAbTpyx4BKS/LwZKT0NcQ5KkNxlHnHlUlXxqvgqHVx5cHHjW4bPNH6tyEYf348ztFu6Lro9EEEq6UVUJAN0nhIv2CRG1vFnSKSEjjWfRUcyU7bjEthnsk1kzp25s5hRN6M12Mt+Bi8dMjgyqsHwgrVs0/SVoWLINOGuOy6I8IP8e6ZtDs5eE5D/iPXU/JoAZaImBlJzwYqNHeAOpF+x8MYPikhxlJVWGSkn6cU92sbGxtyeVatJjn/tkyWtCmicU+tjwqSK5l3MmQnRqZlruYRid99hpsf9usWs4whfStZleR1DWhWWt47cHLXQnrDMHWUGhldxcJ/eYbWcKuF/88wbJemoggHEHW0LXd5wJ+UF07obyDSP9+dnF+z1IHRz8XG6qI5CNKz+rI4JJ8nFSnEZcqUwuMSKIjFOcE5dTIjGt4rg9wUb39DiVKHqOEWDXijFAF7YoXZWkDdhbkazCtgCiQdCH6GTOqxzorUgyMq+SfVEr6TO6XshTsd8rhF7kSbeNvHkZwLNZrxVz1yp/8="
+  - secure: RGK5sDRrqz3CcbApcQn0NtYYTTWv1JIbqLzWRAzFA8H3MGaWh+whU+g+SVFAHWUnI4AZzet2Co5RXhA7sJp1ONtsCXatddxmLsh8ZwiEcGtglpEszh4VGZOXQ/6d2ZUZhz8n3RTCoS0VrW7bMbhdHqpOnAX9LO7vL24pGGIbCPoGLWtvHlz3SNZNznZSONM7mp4UePB3UPVD3YkUMrQAWYjguHoI/dV4Cw4bUF8Qvv+mM7YVaqrs77I4o5DuyhtQBYr3pQPdHTX/K55c9MzUd1z4YBgIypxcYRJNPA0vHdkVB/bRWkHL3ygv2uA7A2ISs5YnHCF+j5E0INcKrNv4xG/Z74UffKXiAAWlwS/lU+/xx2QGO++BBfAGkBeCs9D/Ys5fLz7WuIKrHKMUDZIyCzacJJb3jRdW9+eec9RPNVN23f4/sav5VuJp9KaYpCMvhppk8Yavw0J0fKvmTcpLBkscu6o7pdcPOBCHRxNWENRyRdm/demq8VXyp7/+/gPSV5C7pKpg9X4/2QEXI+ABExrvg28UeA3MqzHXX7BiPTv2jGV7TWsUQShXeHSXdstVccP+wfLa83nBQsuvvHC1dNagi/GdBIjk/AmHyr1p2Y6ws3Zz3gozC+XwXp5e6B9Cl2cqM1WLCMlhlr5esSIUO15EsZ1gwGntkhBzkzoCTY0=
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - gcc-4.8
-      - g++-4.8
+    - gcc-4.8
+    - g++-4.8
 
 install:
-  - sudo unlink /usr/bin/g++
-  - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
-  - npm install -g npm
-  - npm install -d
-  - npm install -g grunt-cli
-  - grunt test
-  - grunt lint
+- sudo unlink /usr/bin/g++
+- sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
+- npm install -g npm
+- npm install -d
+- npm install -g grunt-cli
+- grunt test
+- grunt lint
 
 after_success:
-  - grunt coverage-report; grunt coveralls
+- grunt coverage-report; grunt coveralls
