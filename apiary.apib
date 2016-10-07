@@ -39,15 +39,18 @@ Final version aligned with FIWARE Release 5.3.5.
 
 # Group aiakos v1
 
-## Regions [/v1/support]
+## Regions [/v1/support?regionName={regionName}]
 
 ### Get list [GET]
 
-Get the region list with keys.
+Get the region list with keys. You should use regionName parameter in order to filter the list.
 
 Response in JSON:
 * Succesful operation uses 200 Ok
 * Body: a list of JSON with region name and date of last update of the availables keys.
+
++ Parameters
+    + regionName (optional, String, `spain`) ... filter by region name
 
 + Request (application/json)
     + Headers
@@ -69,12 +72,12 @@ Response in JSON:
         ]
 
 
-## Query key [/v1/support/{region_name}/{key}]
+## Query key [/v1/support/{regionName}/{key}]
 
 Get the key for region
 
 + Parameters
-    + region_name (required, string, `region1`) ... region name.
+    + regionName (required, string, `region1`) ... region name.
     + key (sshkey | gpgkey)
 
 ### Get key [GET]
