@@ -279,6 +279,20 @@ Top_
 API Overview
 ============
 
+First of all, for POST request to Aiakos you need to fill x-auth-token header.
+The header x-auth-token is mandatory because Aiakos have to validate against infrastructure the permissions to upload a key.
+The token should be requested to keystone with a valid admin-<region> user as follows:
+
+::
+
+    curl --request POST \
+         --url http://cloud.lab.fi-ware.org:4731/v2.0/tokens \
+         --header "Accept: application/json" \
+         --header "Content-Type: application/json"
+         --data '{"auth":{"tenantName":"admin","passwordCredentials":{"username":"<admin-spain>","password":"zzzzzzzzzzzzz"}}}'
+
+In the json response, token with the value should be in *access.token.id*
+
 To upload new/modified a gpg key to the server. You should send a POST like this:
 
 ::
