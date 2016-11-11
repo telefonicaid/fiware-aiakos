@@ -1,13 +1,13 @@
 sudo: required
 language: node_js
 node_js:
-  - "4.5.0"
+  - 4.5.0
 env:
   global:
   - CXX=g++-4.8
   - COVERALLS_SERVICE_NAME=travis-ci
     # COVERALLS_REPO_TOKEN (encrypted)
-  - secure: RGK5sDRrqz3CcbApcQn0NtYYTTWv1JIbqLzWRAzFA8H3MGaWh+whU+g+SVFAHWUnI4AZzet2Co5RXhA7sJp1ONtsCXatddxmLsh8ZwiEcGtglpEszh4VGZOXQ/6d2ZUZhz8n3RTCoS0VrW7bMbhdHqpOnAX9LO7vL24pGGIbCPoGLWtvHlz3SNZNznZSONM7mp4UePB3UPVD3YkUMrQAWYjguHoI/dV4Cw4bUF8Qvv+mM7YVaqrs77I4o5DuyhtQBYr3pQPdHTX/K55c9MzUd1z4YBgIypxcYRJNPA0vHdkVB/bRWkHL3ygv2uA7A2ISs5YnHCF+j5E0INcKrNv4xG/Z74UffKXiAAWlwS/lU+/xx2QGO++BBfAGkBeCs9D/Ys5fLz7WuIKrHKMUDZIyCzacJJb3jRdW9+eec9RPNVN23f4/sav5VuJp9KaYpCMvhppk8Yavw0J0fKvmTcpLBkscu6o7pdcPOBCHRxNWENRyRdm/demq8VXyp7/+/gPSV5C7pKpg9X4/2QEXI+ABExrvg28UeA3MqzHXX7BiPTv2jGV7TWsUQShXeHSXdstVccP+wfLa83nBQsuvvHC1dNagi/GdBIjk/AmHyr1p2Y6ws3Zz3gozC+XwXp5e6B9Cl2cqM1WLCMlhlr5esSIUO15EsZ1gwGntkhBzkzoCTY0=
+  - secure: HwELk4+NjL4768aMjHlmymn94qDuoxfMwOdPuhUhvdbTMYmQZknCokmbGqWYgmk1gY6js6+4HmAEB23U3VOCLTD68HswPzSNejDtYfAJrGEElqD9HBvj9IJQuwtcoX4V+AtBxBl3d3gfuVpokFHl0Y5Ob+tFGFRyp9mV04bXrE3EwEkxhHlKLjMiZk9BBpMVeMFycID+d1qEpiA8CF1ehwbU+GGVfHHe5q+OOCSjL7YC6URNVR2R9i544hI+PnlF2UhCF3fFSizGDDsugMMmt6boHI62tPnfhNDD83DTtS8RIN+I8YF0kcJU2ArQ8K3FR2BoRmb7beqejf7Sz6Er9ZkjRYO4wBFwRTeYKEBfg5MtsaABw4hQxlYk1KKkETO/KXhTqXMWDZUV6RVzt7nZzP6NILqOeRtjdFJW9fyGq1ekjRFCjNUprxDE641JdZFOYXojzhLLXqb2vPEKowxbq4aFI6FFKWMoUTs8tANh7Z1CfshR9/RmzxrmdskLfy1ENL6X8hUreMUvCJvXY8dBDy8kiLS6N1DXHEIc5S+wt68feiVmVErMjLypOcC0Cx++Iiri4C08u1UhTMgvQth+O+gQz+jKgnilxe3A9ccG7vBTSIfCQ57s2Mb4cnyFDTsuuAJZHsJJOhDlXaQL674rDLw7LrbQqz+t7/Jn0JuiPd4=
 addons:
   apt:
     sources:
@@ -15,7 +15,6 @@ addons:
     packages:
     - gcc-4.8
     - g++-4.8
-
 install:
 - sudo unlink /usr/bin/g++
 - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
@@ -24,6 +23,5 @@ install:
 - npm install -g grunt-cli
 - grunt test
 - grunt lint
-
 after_success:
 - grunt coverage-report; grunt coveralls
