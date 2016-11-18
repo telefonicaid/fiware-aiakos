@@ -410,6 +410,10 @@ Use the script provided for generate the package for the OS used::
 
     $ tools/build/package.sh
 
+Please refer to `4. Run PackageGenerator <docker/README.md>`_ for more information about how to upload rpm to fiware
+ repositories.
+
+
 Top_
 
 Docker image

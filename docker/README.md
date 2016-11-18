@@ -99,14 +99,39 @@ Please keep in mind that if you do not change the name of the image it will auto
 > TIP: you can launch a FIWARE Lab testbed container to execute the Aiakos E2E test. Just follow the indications in [FIWARE Testbed Deploy](https://hub.docker.com/r/fiware/testbed-deploy/). It will launch a virtual machine in which a reproduction of the FIWARE Lab is installed. Keep in mind that in that case Region1 have to be configured with the value qaregion.
 
 ----
-## 4. Other info
+## 4. Run PackageGenerator
+
+You could move to the PackageGenerator folder `./PackageGenerator` in order to create/launch docker container for generate a RPM file and upload it to [Fiware lab repositories](http://repositories.lab.fiware.org/repo/files/)
+First, you must define the following environment variables:
+
+    export OS_USERNAME_VALUE = <admin username>
+    export OS_PASSWORD_VALUE = <admin password>
+    export OS_TENANT_NAME_VALUE = <admin tenant name>
+    
+Execute docker commands as follow:
+
+    $ docker build -t fiware-aiakos-rpm .
+    $ docker run --name fiware-aiakos-rpm fiware-aiakos-rpm
+
+After that, navegate to [Fiware lab repositories](http://repositories.lab.fiware.org/repo/files/) to download the fiware-aiakos rpm.
+You can configure a yum repository `/etc/yum.repos.d` to install with yum tool:
+
+    [fiware]
+    name=FIWARE repository
+    baseurl=http://repositories.lab.fiware.org/repo/rpm/x86_64/
+    enabled=1
+    gpgcheck=0
+    
+
+----
+## 5. Other info
 
 Things to keep in mind while working with docker containers and Aiakos.
 
-### 4.1 Data persistence
+### 5.1 Data persistence
 Everything you do with Aiakos when dockerized is non-persistent. *You will lose all your data* if you turn off the Aiakos container. This will happen with either method presented in this README.
 
-### 4.2 Using `sudo`
+### 5.2 Using `sudo`
 
 If you do not want to have to use `sudo` follow [these instructions](http://askubuntu.com/questions/477551/how-can-i-use-docker-without-sudo).
    
