@@ -382,9 +382,24 @@ Unit tests
 ----------
 
 The ``test`` target is used for running the unit tests in the component::
+First of all, install `grunt tools <http://gruntjs.com/installing-grunt>`_. Previous to it, remove old versions of grunt and grunt-cli.
+Install grunt as follow::
+
+   $ npm install
+   $ npm install -g grunt-cli
+
+Now, you can run the tests::
 
     $ cd fiware-aiakos
     $ grunt test
+
+Top_
+
+Acceptance tests
+----------------
+
+In order to launch the acceptance test, there is a project developed in python+behave framework.
+Please refer to `component, integration and e2e testing <test/acceptance/README.rst>`_ for more information.
 
 Top_
 

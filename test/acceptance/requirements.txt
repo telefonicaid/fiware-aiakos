@@ -1,3 +1,5 @@
 git+https://github.com/qaenablers/python-qautils@v1.2.0
 PyHamcrest==1.8.3
 python-keystoneclient!=1.8.0,>=1.6.0
+behave==1.2.5
+pycrypto=2.6.1
