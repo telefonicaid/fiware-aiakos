@@ -24,7 +24,6 @@ RUN yum -y install curl host syslinux nc  gcc libffi-devel  openssl-devel git gc
 RUN git clone https://github.com/telefonicaid/fiware-aiakos /opt/fiware-aiakos
 WORKDIR /opt/fiware-aiakos/test/acceptance
 RUN pip install -r requirements.txt --allow-all-external
-RUN pip install behave pycrypto
 COPY settings.json ./conf/settings.json
 COPY start_acceptance.sh start.sh
 CMD ./start.sh
