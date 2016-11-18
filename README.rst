@@ -398,7 +398,7 @@ Top_
 Acceptance tests
 ----------------
 
-In order to launch the acceptance test, there is a project developed in python and behave.
+In order to launch the acceptance test, there is a project developed in python+behave framework.
 Please refer to `component, integration and e2e testing <test/acceptance/README.rst>`_ for more information.
 
 Top_
