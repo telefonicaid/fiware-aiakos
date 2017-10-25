@@ -30,10 +30,9 @@ Aiakos is a service developed to store the public keys corresponding to each FIW
 Lab node in order to secure the access to the virtual machines instantiated in the
 FIWARE Lab.
 
-Each region of FIWARE Lab must generate and provided a SSH public key and a GPG
-public key. As a remainder,
-it is perfectly secure that people have access to public keys. Only the private
-keys must remain secret.
+Each region of FIWARE Lab must generate and provide a SSH public key and a GPG
+public key. As a remainder, it is perfectly secure that people have access to public
+keys. Only the private keys must remain secret.
 
 Top_
 
@@ -129,7 +128,7 @@ each product, although some information will be provided AS IS to people
 interested in an introduction and some references to start with.
 
 The advantage of a hardware solution is that it provides better security. It
-also make possible a full control and audit, because with a hardware solution
+also makes possible a full control and audit, because with a hardware solution
 the person who uses the key cannot copy it. Most of the advantages of a
 hardware solution can be replicated using a dedicated host and an agent: this way
 support staff does not have access to the key and the cryptographic operations are
@@ -160,7 +159,7 @@ in Linux nor provided free/open source drivers.
   a bridge between PCKS#11 and GPG.
 
 A very cheap solution (but not the more secure, most of the other devices are
-designed to resists more types of attacks, including analysing the power consume)
+designed to resist more types of attacks, including analysing the power consume)
 is to use gnuk project with some STM32 devices. This software is designed
 for GPG keys, but the documentation explains how to use with ssh through an
 agent.
@@ -280,8 +279,9 @@ API Overview
 ============
 
 First of all, for POST request to Aiakos you need to fill x-auth-token header.
-The header x-auth-token is mandatory because Aiakos have to validate against infrastructure the permissions to upload a key.
-The token should be requested to keystone with a valid admin-<region> user as follows:
+The header x-auth-token is mandatory because Aiakos have to be validated against
+FIWARE Lab Authentication Service to upload a key. The token should be requested to
+keystone with a valid admin-<region> user as follows:
 
 ::
 
@@ -355,7 +355,7 @@ the use of a configuration file is preferable:
 Such configuration file is self-documented, so you will find a description of
 every configuration option there.
 
-After installing and configuring the service, you can execute the service with the following command::
+After installing and configuring the service, you can execute it with the following command::
 
     $ sudo service fiware-aiakos start
 
@@ -374,7 +374,7 @@ SSH and PGP keys
 ----------------
 
 The key files for aiakos are stored in the folder /opt/fiware-aiakos/lib/public/keys.
-The naming must be <region_name>.sshkey and <region_name>.gpgkey (lowercase is mandatory)
+The naming policy must be <region_name>.sshkey and <region_name>.gpgkey (lowercase is mandatory)
 
 Top_
 
