@@ -19,33 +19,31 @@ var assert = require('assert'),
     version = require('../../lib/routes/version'),
     sinon = require('sinon');
 
-var basePath = './test/unit/';
-
 /* jshint multistr: true */
 suite('version', function () {
 
     test('should_return_a_null_valid_format_uptime', function () {
       // given
       var uptime = 0;
-      var expected_result = '00 d, 00 h, 00 m, 00 s';
+      var expectedResult = '00 d, 00 h, 00 m, 00 s';
 
       // when
       var result = version.format(uptime);
 
       // then
-      assert(expected_result, result);
+      assert(expectedResult, result);
     });
 
     test('should_return_a_valid_format_uptime', function () {
       // given
       var uptime = 245132789.734;
-      var expected_result = '2837 d, 04 h, 26 m, 29 s';
+      var expectedResult = '2837 d, 04 h, 26 m, 29 s';
 
       // when
       var result = version.format(uptime);
 
       // then
-      assert(expected_result, result);
+      assert(expectedResult, result);
     });
 
     test('should_return_a_valid_version_data', function() {
@@ -63,16 +61,16 @@ suite('version', function () {
 
         // then
         assert(res.contentType, 'application/json');
-        assert(res.status.args[0][0] == 200);
+        assert(res.status.args[0][0] === 200);
 
         assert(res.json.calledOnce);
 
         var GEData = res.json.args[0][0].Aiakos;
 
-        assert(GEData.version != '')
-        assert(GEData.release_date != '')
-        assert(GEData.uptime != '')
-        assert(GEData.git_hash != '')
-        assert(GEData.doc == 'https://jsapi.apiary.io/apis/fiwareaiakos/reference.html')
+        assert(GEData.version !== '');
+        assert(GEData.releaseDate !== '');
+        assert(GEData.uptime !== '');
+        assert(GEData.gitHash !== '');
+        assert(GEData.doc === 'https://jsapi.apiary.io/apis/fiwareaiakos/reference.html');
     });
 });
