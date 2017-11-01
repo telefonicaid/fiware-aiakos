@@ -59,7 +59,7 @@ suite('version', function () {
         res.status = sinon.spy();
 
         // when
-        version.get_version(req, res);
+        version.getVersion(req, res);
 
         // then
         assert(res.contentType, 'application/json');
@@ -67,12 +67,12 @@ suite('version', function () {
 
         assert(res.json.calledOnce);
 
-        var ge_data = res.json.args[0][0].Aiakos;
+        var GEData = res.json.args[0][0].Aiakos;
 
-        assert(ge_data.version != '')
-        assert(ge_data.release_date != '')
-        assert(ge_data.uptime != '')
-        assert(ge_data.git_hash != '')
-        assert(ge_data.doc == 'https://jsapi.apiary.io/apis/fiwareaiakos/reference.html')
+        assert(GEData.version != '')
+        assert(GEData.release_date != '')
+        assert(GEData.uptime != '')
+        assert(GEData.git_hash != '')
+        assert(GEData.doc == 'https://jsapi.apiary.io/apis/fiwareaiakos/reference.html')
     });
 });
