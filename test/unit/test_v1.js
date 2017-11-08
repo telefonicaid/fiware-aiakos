@@ -81,6 +81,8 @@ suite('v1', function () {
         var req = sinon.stub(),
             res = sinon.stub();
 
+        req.accepts = sinon.spy(function () { return ['text/plain']; });
+
         req.params = sinon.stub();
         req.params.region = 'region1';
         req.params.key = 'sshkey';
@@ -313,6 +315,8 @@ suite('v1', function () {
         var req = sinon.stub(),
             res = sinon.stub();
 
+        req.accepts = sinon.spy(function () { return ['text/plain']; });
+
         req.params = sinon.stub();
         req.params.region = 'ReGion1';
         req.params.key = 'sshkey';
@@ -333,6 +337,8 @@ suite('v1', function () {
     test('should_return_a_valid_ssh_key_for_valid_region_ended_with_2', function() {
         var req = sinon.stub(),
             res = sinon.stub();
+
+        req.accepts = sinon.spy(function () { return ['text/plain']; });
 
         req.params = sinon.stub();
         req.params.region = 'region12';
@@ -382,7 +388,7 @@ suite('v1', function () {
     });
 
     test('should_return_three_values_with_info_about_a_file', function() {
-        
+
         var result = v1.getRegionInfo('region1.sshkey');
 
         assert(result[0] === 'region1');
@@ -395,6 +401,8 @@ suite('v1', function () {
     test('should_return_a_list_of_regions_with_json', function() {
         var req = sinon.stub(),
             res = sinon.stub();
+
+        req.accepts = sinon.spy(function () { return ['application/json']; });
 
         res.type = sinon.spy();
         res.end = sinon.spy();
@@ -418,6 +426,8 @@ suite('v1', function () {
         var req = sinon.stub(),
             res = sinon.stub();
 
+        req.accepts = sinon.spy(function () { return ['application/json']; });
+
         res.type = sinon.spy();
         res.end = sinon.spy();
         req.query = sinon.spy();
@@ -440,6 +450,8 @@ suite('v1', function () {
     test('should_return_a_empty_list_of_regions_using_query_parameter', function() {
         var req = sinon.stub(),
             res = sinon.stub();
+
+        req.accepts = sinon.spy(function () { return ['application/json']; });
 
         res.type = sinon.spy();
         res.end = sinon.spy();

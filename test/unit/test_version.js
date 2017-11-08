@@ -46,10 +46,12 @@ suite('version', function () {
       assert(expectedResult, result);
     });
 
-    test('should_return_a_valid_version_data', function() {
+    test('should_return_a_valid_version_data_with_correct_accept', function() {
         // given
-        var req = sinon.stub(),
+        var req = sinon.spy(),
             res = sinon.stub();
+
+        req.accepts = sinon.spy(function () { return ['application/json']; });
 
         res.end = sinon.spy();
         res.contentType = sinon.spy();
@@ -73,4 +75,24 @@ suite('version', function () {
         assert(GEData.gitHash !== '');
         assert(GEData.doc === 'https://jsapi.apiary.io/apis/fiwareaiakos/reference.html');
     });
+
+    test('should_return_response_with_405', function() {
+        //given
+        var req = sinon.stub(),
+            res = sinon.stub();
+
+        res.status = sinon.stub();
+        res.setHeader = sinon.stub();
+        res.send = sinon.stub();
+
+        //when
+        version.methodNotAllowed(req, res);
+
+        //then
+        assert(res.status.withArgs(405).calledOnce);
+        assert(res.setHeader.withArgs('content-type', 'application/json').calledOnce);
+        assert(res.send.calledOnce);
+
+    });
+
 });
