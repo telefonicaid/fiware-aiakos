@@ -15,7 +15,7 @@
     "domain": "0.0.1",
     "express": "~4.13.1",
     "express-domain-middleware": "^0.1.0",
-    "forever": "^0.15.1",
+    "forever": "^2.0.0",
     "fs": "0.0.2",
     "hashtable": "^2.0.2",
     "jade": "~1.11.0",
